@@ -2,12 +2,30 @@ import 'package:flutter/material.dart';
 
 void main() {}
 
-class CurrencyConverterMateriaPage extends StatelessWidget {
+
+class CurrencyConverterMateriaPage extends StatefulWidget{
   const CurrencyConverterMateriaPage({super.key});
 
+  @override
+  State createState() =>_CurrencyConverterMaterialPageState();
+}
+
+class _CurrencyConverterMaterialPageState extends State {
+  @override
+  Widget build(BuildContext context){
+    return const Scaffold();
+  }
+}
+class CurrencyConverterMateriaPagee extends StatelessWidget {
+  const CurrencyConverterMateriaPagee({super.key});
 
   @override
   Widget build(BuildContext context) {
+    double result = 0; // This variable is not used in the current code, but can be used for conversion logic later.
+    // TextEditingController is used to control the text input field.
+    final TextEditingController textEditingController = TextEditingController();
+
+    print(result); // This will print the initial value of result, which is 0.
     
     return Scaffold(
       appBar: AppBar(
@@ -25,8 +43,8 @@ class CurrencyConverterMateriaPage extends StatelessWidget {
               padding: EdgeInsets.all(20),
 
               child: Text(
-                '0',
-                style: TextStyle(
+                result.toString(), // Display the result of the conversion
+                style: const TextStyle(
                   fontSize: 50,
                   fontWeight: FontWeight.bold,
                   color: Colors.blue,
@@ -37,9 +55,10 @@ class CurrencyConverterMateriaPage extends StatelessWidget {
               'Convert your currencies easily!',
               style: TextStyle(fontSize: 16, color: Colors.black),
             ),
-            const Padding(
-              padding: EdgeInsets.all(20),
+             Padding(
+              padding: const EdgeInsets.all(20),
               child: TextField(
+                controller: textEditingController,
                 style: TextStyle(color: Colors.red),
                 decoration: InputDecoration(
                   // label: Text("Please enter the amount to convert"),
@@ -71,7 +90,10 @@ class CurrencyConverterMateriaPage extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: TextButton(
-                onPressed: () => debugPrint('Button clicked!'),
+                onPressed: () => 
+                  result = double.parse(textEditingController.text) * 1500,
+                // debugPrint('Button clicked!'), // This line is commented out because it does not perform any action in the current context.
+                // The conversion logic is not implemented yet, but this is where you would handle the conversion
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
                   minimumSize: MaterialStateProperty.all<Size>(Size(double.infinity, 50)),
