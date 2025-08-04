@@ -25,22 +25,28 @@ class _WeatherAppPageState extends State<WeatherAppPage> {
     // Fetch current weather data when the page is initialized
     getCurrentWeather();
   }
+
+  // function to get the current weather data
   Future<void> getCurrentWeather() async {
   final response = await http.get(
     Uri.parse('https://api.openweathermap.org/data/2.5/forecast?q=London,uk&units=metric&APPID=$openWeatherAPIKey')
 
   );
 
+ try{
   if (response.statusCode == 200) {
     final data = jsonDecode(response.body);
-    print(response.body); // Print the raw response for debugging
-    print(data); // Print the fetched data for debugging
+    // print(response.body); // Print the raw response for debugging
+     // print(data); // Print the fetched data for debugging
      setState(() {
       temperature = data['list'][0]['main']['temp'].toDouble();
     });
   } else {
     throw Exception('Failed to load weather data');
   }
+ } catch (e) {
+  print('Error: $e');
+ }
 }
 
 
