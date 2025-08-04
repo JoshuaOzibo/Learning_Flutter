@@ -24,9 +24,15 @@ class MyApp extends StatelessWidget {
     @override
     Widget build(BuildContext context){
         return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData.dark(useMaterial3: true).copyWith(
+            // customizing the app bar
+          ),
             home: Scaffold(
-                body: CurrencyConverterMateriaPage(),
+                body: WeatherAppPage(),
             ),
         );
     }
 }
+
+// CurrencyConverterMateriaPage(),
