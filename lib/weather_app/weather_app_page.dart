@@ -18,7 +18,10 @@ class WeatherAppPage extends StatefulWidget {
 class _WeatherAppPageState extends State<WeatherAppPage> {
 
   double temperature = 0; // Example temperature in Kelvin
-
+  String currentSkyIcon = '';
+  double currentPressure = 0;
+  double currentHumidity = 0;
+  double currentWindSpeed = 0;
   @override
   void initState() {
     super.initState();
@@ -35,12 +38,20 @@ class _WeatherAppPageState extends State<WeatherAppPage> {
 
  try{
   if (response.statusCode == 200) {
+    print(response.statusCode);
     final data = jsonDecode(response.body);
     // print(response.body); // Print the raw response for debugging
      // print(data); // Print the fetched data for debugging
+     final indexData = data['list'][0];
      setState(() {
-      temperature = data['list'][0]['main']['temp'].toDouble();
+      temperature = indexData['main']['temp'].toDouble();
+      currentSkyIcon = indexData['weather'][0]['main'];
+      currentPressure = indexData['main']['pressure'];
+      currentHumidity = indexData['main']['humidity'];
+      currentWindSpeed = indexData['wind']['speed'];
     });
+
+    
   } else {
     throw Exception('Failed to load weather data');
   }
@@ -85,7 +96,7 @@ class _WeatherAppPageState extends State<WeatherAppPage> {
           // )
         ],
       ),
-      body: Padding(
+      body: temperature == 0 ? const Center(child: CircularProgressIndicator()) : Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -118,11 +129,12 @@ class _WeatherAppPageState extends State<WeatherAppPage> {
                             height: 15,
                           ), // Space between temperature and icon
 
-                          const Icon(Icons.cloud, size: 65, color: Colors.white),
+                          Icon(
+                            currentSkyIcon == 'Clear' ? Icons.sunny : Icons.cloud, size: 65, color: Colors.white),
 
                          const SizedBox(height: 15), // Space between icon and text
-                         const Text(
-                            'Rain',
+                          Text(
+                            currentSkyIcon == 'Clear' ? 'Sunny' : 'Cloudy',
                             style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.w900,
@@ -168,9 +180,9 @@ class _WeatherAppPageState extends State<WeatherAppPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                const AdditionalInformationItems(icon: Icons.water_drop, label: 'Humidity', value: '60%'),
-                const AdditionalInformationItems( icon: Icons.air, label: 'Wind Speed', value: '7.5'),
-                const AdditionalInformationItems( icon: Icons.beach_access, label: 'pressure', value: '1000'),
+                AdditionalInformationItems(icon: Icons.water_drop, label: 'Humidity', value: currentHumidity.toString()),
+                AdditionalInformationItems( icon: Icons.air, label: 'Wind Speed', value: currentWindSpeed.toString()),
+                AdditionalInformationItems( icon: Icons.beach_access, label: 'pressure', value: currentPressure.toString()),
               ],
             ),
           ],

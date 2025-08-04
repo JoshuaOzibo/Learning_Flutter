@@ -39,7 +39,14 @@ app.*.symbols
 # Obfuscation related
 app.*.map.json
 
+# ignore the pubspec.lock file
+pubspec.lock
+
+# ignore the secret.dart file
+secret.dart
+
 # Android Studio will place build artifacts here
 /android/app/debug
 /android/app/profile
 /android/app/release
+
