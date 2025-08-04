@@ -1,15 +1,55 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'dart:ui';
 import 'hourly_forecast_item.dart';
 import 'additional_information_items.dart';
+import 'secret.dart'; // Import your secret file for API key
+import 'package:http/http.dart' as http;
 
 void main() {}
 
-class WeatherAppPage extends StatelessWidget {
+class WeatherAppPage extends StatefulWidget {
   const WeatherAppPage({super.key});
 
   @override
+  State<WeatherAppPage> createState() => _WeatherAppPageState();
+}
+
+class _WeatherAppPageState extends State<WeatherAppPage> {
+
+  double temperature = 0; // Example temperature in Kelvin
+
+  @override
+  void initState() {
+    super.initState();
+    // Fetch current weather data when the page is initialized
+    getCurrentWeather();
+  }
+  Future getCurrentWeather () async {
+    http.get(Uri.parse('https://api.openweathermap.org/data/2.5/forecast?q=London,uk&APPID=$openWeatherAPIKey'))
+      .then((response) {
+        if (response.statusCode == 200) {
+          // Parse the JSON data
+          final data = jsonDecode(response.body);
+          print(data); // Print the entire data for debugging
+          // Extract temperature from the data (example parsing, adjust as needed)
+          setState(() {
+            temperature = data(data['list'][0]['main']['temp'].toString());
+          });
+
+          print('Temperature: $temperature K'); // Print the temperature  
+        } else {
+          throw Exception('Failed to load weather data');
+        }
+      });
+  }
+
+
+  
+  @override
   Widget build(BuildContext context) {
+     print(temperature);
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -60,25 +100,25 @@ class WeatherAppPage extends StatelessWidget {
                   child: BackdropFilter(
                     // Apply blur effect
                     filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                    child: const Padding(
+                    child: Padding(
                       padding: EdgeInsets.all(16.0),
                       child: Column(
                         children: [
                           Text(
-                            '300 °C',
+                            '$temperature K', // Display temperature in Kelvin
                             style: TextStyle(
                               fontSize: 35,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 15,
                           ), // Space between temperature and icon
 
-                          Icon(Icons.cloud, size: 65, color: Colors.white),
+                          const Icon(Icons.cloud, size: 65, color: Colors.white),
 
-                          SizedBox(height: 15), // Space between icon and text
-                          Text(
+                         const SizedBox(height: 15), // Space between icon and text
+                         const Text(
                             'Rain',
                             style: TextStyle(
                               fontSize: 20,
