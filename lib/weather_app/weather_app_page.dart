@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'dart:ui';
 import 'hourly_forecast_item.dart';
@@ -26,30 +25,28 @@ class _WeatherAppPageState extends State<WeatherAppPage> {
     // Fetch current weather data when the page is initialized
     getCurrentWeather();
   }
-  Future getCurrentWeather () async {
-    http.get(Uri.parse('https://api.openweathermap.org/data/2.5/forecast?q=London,uk&APPID=$openWeatherAPIKey'))
-      .then((response) {
-        if (response.statusCode == 200) {
-          // Parse the JSON data
-          final data = jsonDecode(response.body);
-          print(data); // Print the entire data for debugging
-          // Extract temperature from the data (example parsing, adjust as needed)
-          setState(() {
-            temperature = data(data['list'][0]['main']['temp'].toString());
-          });
+  Future<void> getCurrentWeather() async {
+  final response = await http.get(
+    Uri.parse('https://api.openweathermap.org/data/2.5/forecast?q=London,uk&units=metric&APPID=$openWeatherAPIKey')
 
-          print('Temperature: $temperature K'); // Print the temperature  
-        } else {
-          throw Exception('Failed to load weather data');
-        }
-      });
+  );
+
+  if (response.statusCode == 200) {
+    final data = jsonDecode(response.body);
+    print(response.body); // Print the raw response for debugging
+    print(data); // Print the fetched data for debugging
+     setState(() {
+      temperature = data['list'][0]['main']['temp'].toDouble();
+    });
+  } else {
+    throw Exception('Failed to load weather data');
   }
+}
 
 
   
   @override
   Widget build(BuildContext context) {
-     print(temperature);
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -105,7 +102,7 @@ class _WeatherAppPageState extends State<WeatherAppPage> {
                       child: Column(
                         children: [
                           Text(
-                            '$temperature K', // Display temperature in Kelvin
+                            '${temperature.toStringAsFixed(1)} K', // Display temperature in Kelvin
                             style: TextStyle(
                               fontSize: 35,
                               fontWeight: FontWeight.bold,
