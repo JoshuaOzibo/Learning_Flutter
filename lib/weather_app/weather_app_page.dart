@@ -17,11 +17,15 @@ class WeatherAppPage extends StatefulWidget {
 
 class _WeatherAppPageState extends State<WeatherAppPage> {
 
+   bool isLoading = true;
   double temperature = 0; // Example temperature in Kelvin
   String currentSkyIcon = '';
   double currentPressure = 0;
   double currentHumidity = 0;
   double currentWindSpeed = 0;
+  List<Map<String, dynamic>> hourlyForecast = [];
+
+
   @override
   void initState() {
     super.initState();
@@ -42,13 +46,18 @@ class _WeatherAppPageState extends State<WeatherAppPage> {
     final data = jsonDecode(response.body);
     // print(response.body); // Print the raw response for debugging
      // print(data); // Print the fetched data for debugging
-     final indexData = data['list'][0];
+     
      setState(() {
+      hourlyForecast = (data['list'] as List).take(5).map((item) => item as Map<String, dynamic>).toList(); // take the first 5 items from the list
+     final indexData = data['list'][0];
+
+
       temperature = indexData['main']['temp'].toDouble();
       currentSkyIcon = indexData['weather'][0]['main'];
       currentPressure = indexData['main']['pressure'];
       currentHumidity = indexData['main']['humidity'];
       currentWindSpeed = indexData['wind']['speed'];
+      isLoading = false;
     });
 
     
@@ -96,7 +105,7 @@ class _WeatherAppPageState extends State<WeatherAppPage> {
           // )
         ],
       ),
-      body: temperature == 0 ? const Center(child: CircularProgressIndicator()) : Padding(
+      body: isLoading ? const Center(child: CircularProgressIndicator()) : Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -111,9 +120,9 @@ class _WeatherAppPageState extends State<WeatherAppPage> {
                 child: ClipRect(
                   // Clip the content to the card's shape
                   // borderRadius: BorderRadius.circular(15),
-                  child: BackdropFilter(
+                  child:  BackdropFilter(
                     // Apply blur effect
-                    filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                    filter:  ImageFilter.blur(sigmaX: 10, sigmaY: 10),
                     child: Padding(
                       padding: EdgeInsets.all(16.0),
                       child: Column(
@@ -132,7 +141,7 @@ class _WeatherAppPageState extends State<WeatherAppPage> {
                           Icon(
                             currentSkyIcon == 'Clear' ? Icons.sunny : Icons.cloud, size: 65, color: Colors.white),
 
-                         const SizedBox(height: 15), // Space between icon and text
+                         const  SizedBox(height: 15), // Space between icon and text
                           Text(
                             currentSkyIcon == 'Clear' ? 'Sunny' : 'Cloudy',
                             style: TextStyle(
@@ -152,20 +161,23 @@ class _WeatherAppPageState extends State<WeatherAppPage> {
             // Title for hourly forecast section
             const Text(
               'Weather Forcast',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              style:  TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
 
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  HourlyForecastItem( time: '09:00', temperature: '300 °C'),
-                  HourlyForecastItem( time: '09:00', temperature: '300 °C'),
-                  HourlyForecastItem( time: '09:00', temperature: '300 °C'),
-                  HourlyForecastItem( time: '09:00', temperature: '300 °C'),
-                  HourlyForecastItem( time: '09:00', temperature: '300 °C'),
-                ],
-              ),
+            SizedBox(
+                    height: 120, // Fixed height for smoother scrolling
+                    child: ListView.builder( // use ListView.builder to build the list of hourly forecast items
+                      scrollDirection: Axis.horizontal,
+                      itemCount: hourlyForecast.length,
+                      itemBuilder: (context, index) {
+                        final forecast = hourlyForecast[index];
+                        return HourlyForecastItem(
+                          time: forecast['dt_txt'].split(' ')[1],
+                          temperature: forecast['main']['temp'].toString(),
+                          icon: forecast['weather'][0]['main'] == 'Clear' ? Icons.sunny : Icons.cloud,
+                        );
+                      },
+                    ),
             ),
 
             const SizedBox(height: 20), // Space between placeholders
