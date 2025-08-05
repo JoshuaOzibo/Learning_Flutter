@@ -44,6 +44,7 @@ pubspec.lock
 
 # ignore the secret.dart file
 secret.dart
+.env
 
 # Android Studio will place build artifacts here
 /android/app/debug

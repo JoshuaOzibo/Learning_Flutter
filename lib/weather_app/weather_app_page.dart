@@ -2,9 +2,9 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'dart:ui';
 import 'hourly_forecast_item.dart';
-import 'additional_information_items.dart';
-import 'secret.dart'; // Import your secret file for API key
+import 'additional_information_items.dart'; // Import your secret file for API key
 import 'package:http/http.dart' as http;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 void main() {}
 
@@ -16,6 +16,7 @@ class WeatherAppPage extends StatefulWidget {
 }
 
 class _WeatherAppPageState extends State<WeatherAppPage> {
+  final apiKey = dotenv.env['OPEN_WEATHER_API_KEY'];
   bool isLoading = true;
   double temperature = 0; // Example temperature in Kelvin
   String currentSkyIcon = '';
@@ -35,7 +36,7 @@ class _WeatherAppPageState extends State<WeatherAppPage> {
   Future<void> getCurrentWeather() async {
     final response = await http.get(
       Uri.parse(
-        'https://api.openweathermap.org/data/2.5/forecast?q=London,uk&units=metric&APPID=$openWeatherAPIKey',
+        'https://api.openweathermap.org/data/2.5/forecast?q=London,uk&units=metric&APPID=$apiKey',
       ),
     );
 
