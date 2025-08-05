@@ -16,15 +16,13 @@ class WeatherAppPage extends StatefulWidget {
 }
 
 class _WeatherAppPageState extends State<WeatherAppPage> {
-
-   bool isLoading = true;
+  bool isLoading = true;
   double temperature = 0; // Example temperature in Kelvin
   String currentSkyIcon = '';
   double currentPressure = 0;
   double currentHumidity = 0;
   double currentWindSpeed = 0;
   List<Map<String, dynamic>> hourlyForecast = [];
-
 
   @override
   void initState() {
@@ -35,42 +33,48 @@ class _WeatherAppPageState extends State<WeatherAppPage> {
 
   // function to get the current weather data
   Future<void> getCurrentWeather() async {
-  final response = await http.get(
-    Uri.parse('https://api.openweathermap.org/data/2.5/forecast?q=London,uk&units=metric&APPID=$openWeatherAPIKey')
+    final response = await http.get(
+      Uri.parse(
+        'https://api.openweathermap.org/data/2.5/forecast?q=London,uk&units=metric&APPID=$openWeatherAPIKey',
+      ),
+    );
 
-  );
+    try {
+      if (response.statusCode == 200) {
+        print(response.statusCode);
+        final data = jsonDecode(response.body);
+        // print(response.body); // Print the raw response for debugging
+        // print(data); // Print the fetched data for debugging
 
- try{
-  if (response.statusCode == 200) {
-    print(response.statusCode);
-    final data = jsonDecode(response.body);
-    // print(response.body); // Print the raw response for debugging
-     // print(data); // Print the fetched data for debugging
-     
-     setState(() {
-      hourlyForecast = (data['list'] as List).take(5).map((item) => item as Map<String, dynamic>).toList(); // take the first 5 items from the list
-     final indexData = data['list'][0];
+        setState(() {
+          hourlyForecast = (data['list'] as List)
+              .take(5)
+              .map((item) => item as Map<String, dynamic>)
+              .toList(); // take the first 5 items from the list
+          final indexData = data['list'][0];
 
-
-      temperature = indexData['main']['temp'].toDouble();
-      currentSkyIcon = indexData['weather'][0]['main'];
-      currentPressure = indexData['main']['pressure'];
-      currentHumidity = indexData['main']['humidity'];
-      currentWindSpeed = indexData['wind']['speed'];
-      isLoading = false;
-    });
-
-    
-  } else {
-    throw Exception('Failed to load weather data');
+          temperature = indexData['main']['temp'].toDouble();
+          currentSkyIcon = indexData['weather'][0]['main'];
+          currentPressure = indexData['main']['pressure'];
+          currentHumidity = indexData['main']['humidity'];
+          currentWindSpeed = indexData['wind']['speed'];
+          isLoading = false;
+        });
+      } else {
+        // print('API Error: Status code ${response.statusCode}');
+        setState(() {
+          isLoading = false;
+        });
+        throw Exception('Failed to load weather data');
+      }
+    } catch (e) {
+      print('Error: $e');
+      setState(() {
+        isLoading = false;
+      });
+    }
   }
- } catch (e) {
-  print('Error: $e');
- }
-}
 
-
-  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -105,68 +109,75 @@ class _WeatherAppPageState extends State<WeatherAppPage> {
           // )
         ],
       ),
-      body: isLoading ? const Center(child: CircularProgressIndicator()) : Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-              width: double.infinity, // Make the card take full width
-              child: Card(
-                elevation: 10, // Add shadow for depth
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                child: ClipRect(
-                  // Clip the content to the card's shape
-                  // borderRadius: BorderRadius.circular(15),
-                  child:  BackdropFilter(
-                    // Apply blur effect
-                    filter:  ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                    child: Padding(
-                      padding: EdgeInsets.all(16.0),
-                      child: Column(
-                        children: [
-                          Text(
-                            '${temperature.toStringAsFixed(1)} K', // Display temperature in Kelvin
-                            style: TextStyle(
-                              fontSize: 35,
-                              fontWeight: FontWeight.bold,
+      body: isLoading
+          ? const Center(child: CircularProgressIndicator())
+          : Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: double.infinity, // Make the card take full width
+                    child: Card(
+                      elevation: 10, // Add shadow for depth
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(15),
+                        child: Stack(
+                          children: [
+                            // Use a simpler background to reduce GPU load
+                            Container(color: Colors.blue.withOpacity(0.2)),
+                            Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: Column(
+                                children: [
+                                  Text(
+                                    '${temperature.toStringAsFixed(1)}°C',
+                                    style: const TextStyle(
+                                      fontSize: 35,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 15),
+                                  Icon(
+                                    currentSkyIcon == 'Clear'
+                                        ? Icons.sunny
+                                        : Icons.cloud,
+                                    size: 65,
+                                    color: Colors.white,
+                                  ),
+                                  const SizedBox(height: 15),
+                                  Text(
+                                    currentSkyIcon == 'Clear'
+                                        ? 'Sunny'
+                                        : 'Cloudy',
+                                    style: const TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w900,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                          const SizedBox(
-                            height: 15,
-                          ), // Space between temperature and icon
-
-                          Icon(
-                            currentSkyIcon == 'Clear' ? Icons.sunny : Icons.cloud, size: 65, color: Colors.white),
-
-                         const  SizedBox(height: 15), // Space between icon and text
-                          Text(
-                            currentSkyIcon == 'Clear' ? 'Sunny' : 'Cloudy',
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.w900,
-                            ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ),
-            ),
 
-            const SizedBox(height: 20), // Space between placeholders
-            // Title for hourly forecast section
-            const Text(
-              'Weather Forcast',
-              style:  TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
+                  const SizedBox(height: 20), // Space between placeholders
+                  // Title for hourly forecast section
+                  const Text(
+                    'Weather Forcast',
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  ),
 
-            SizedBox(
+                  SizedBox(
                     height: 120, // Fixed height for smoother scrolling
-                    child: ListView.builder( // use ListView.builder to build the list of hourly forecast items
+                    child: ListView.builder(
+                      // use ListView.builder to build the list of hourly forecast items
                       scrollDirection: Axis.horizontal,
                       itemCount: hourlyForecast.length,
                       itemBuilder: (context, index) {
@@ -174,32 +185,46 @@ class _WeatherAppPageState extends State<WeatherAppPage> {
                         return HourlyForecastItem(
                           time: forecast['dt_txt'].split(' ')[1],
                           temperature: forecast['main']['temp'].toString(),
-                          icon: forecast['weather'][0]['main'] == 'Clear' ? Icons.sunny : Icons.cloud,
+                          icon: forecast['weather'][0]['main'] == 'Clear'
+                              ? Icons.sunny
+                              : Icons.cloud,
                         );
                       },
                     ),
-            ),
+                  ),
 
-            const SizedBox(height: 20), // Space between placeholders
-            // // Title for additional information section
-            const Text(
-              'Additional Information',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
+                  const SizedBox(height: 20), // Space between placeholders
+                  // // Title for additional information section
+                  const Text(
+                    'Additional Information',
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  ),
 
-            const SizedBox(height: 10), // Space between title and content
-            // // Display additional information items in a row
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                AdditionalInformationItems(icon: Icons.water_drop, label: 'Humidity', value: currentHumidity.toString()),
-                AdditionalInformationItems( icon: Icons.air, label: 'Wind Speed', value: currentWindSpeed.toString()),
-                AdditionalInformationItems( icon: Icons.beach_access, label: 'pressure', value: currentPressure.toString()),
-              ],
+                  const SizedBox(height: 10), // Space between title and content
+                  // // Display additional information items in a row
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      AdditionalInformationItems(
+                        icon: Icons.water_drop,
+                        label: 'Humidity',
+                        value: currentHumidity.toString(),
+                      ),
+                      AdditionalInformationItems(
+                        icon: Icons.air,
+                        label: 'Wind Speed',
+                        value: currentWindSpeed.toString(),
+                      ),
+                      AdditionalInformationItems(
+                        icon: Icons.beach_access,
+                        label: 'pressure',
+                        value: currentPressure.toString(),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
-          ],
-        ),
-      ),
     );
   }
 }
