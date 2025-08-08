@@ -80,15 +80,13 @@ class _WeatherAppPageState extends State<WeatherAppPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        
         title: const Text(
           'Weather App',
           style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
-        onPress: () {
-          // Refresh the weather data when the app bar is tapped
-          getCurrentWeather();
-        },
+        
 
         // backgroundColor: Colors.blueAccent, // Uncomment to set a custom background color for the app bar
         // toolbarHeight: 100, // Uncomment to set a custom height for the app bar
@@ -96,7 +94,13 @@ class _WeatherAppPageState extends State<WeatherAppPage> {
           Padding(
             padding: const EdgeInsets.all(5.0),
             child: IconButton(
-              onPressed: () {},
+              onPressed: () {
+                // Refresh the weather data when the button is pressed
+                setState(() {
+                  isLoading = true; // Show loading indicator
+                });
+                getCurrentWeather(); // Fetch new weather data
+              },
               icon: const Icon(Icons.refresh, size: 20),
               tooltip: 'Refresh', // Tooltip for the refresh button
             ),
