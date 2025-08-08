@@ -85,6 +85,10 @@ class _WeatherAppPageState extends State<WeatherAppPage> {
           style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
+        onPress: () {
+          // Refresh the weather data when the app bar is tapped
+          getCurrentWeather();
+        },
 
         // backgroundColor: Colors.blueAccent, // Uncomment to set a custom background color for the app bar
         // toolbarHeight: 100, // Uncomment to set a custom height for the app bar
