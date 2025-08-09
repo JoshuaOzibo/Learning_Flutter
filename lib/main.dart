@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 // import 'package:flutter_application_1/currency_converter_materia_page.dart';
 import 'package:flutter_application_1/weather_app/weather_app_page.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_application_1/forms/form_page.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -33,7 +34,7 @@ class MyApp extends StatelessWidget {
             // customizing the app bar
           ),
             home: Scaffold(
-                body: WeatherAppPage(),
+                body: FormWidget(),
             ),
         );
     }
