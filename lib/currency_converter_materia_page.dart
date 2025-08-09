@@ -92,16 +92,16 @@ class _CurrencyConverterMaterialPageState
                 // debugPrint('Button clicked!'), // This line is commented out because it does not perform any action in the current context.
                 // The conversion logic is not implemented yet, but this is where you would handle the conversion
                 style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all<Color>(
+                  backgroundColor: WidgetStateProperty.all<Color>(
                     Colors.blue,
                   ),
-                  minimumSize: MaterialStateProperty.all<Size>(
+                  minimumSize: WidgetStateProperty.all<Size>(
                     Size(double.infinity, 50),
                   ),
-                  foregroundColor: MaterialStateProperty.all<Color>(
+                  foregroundColor: WidgetStateProperty.all<Color>(
                     Colors.white,
                   ),
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                  shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                     RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                       side: BorderSide(color: Colors.white, width: 2),
