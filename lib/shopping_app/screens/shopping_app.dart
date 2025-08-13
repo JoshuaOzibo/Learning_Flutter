@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 void main() {
   runApp(ShoppingApp());
 }
@@ -20,7 +21,15 @@ class ShoppingApp extends StatelessWidget {
         //   ),
 
         // ),
-        body: Center(
+        body: Text(
+            'Welcome to the Shopping App',
+            style: GoogleFonts.lato(
+              textStyle: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+            ),
           
         )
       )
