@@ -21,15 +21,29 @@ class ShoppingApp extends StatelessWidget {
         //   ),
 
         // ),
-        body: Text(
-            'Welcome to the Shopping App',
-            style: GoogleFonts.lato(
-              textStyle: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
+        body: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [
+                Colors.blueGrey.shade900,
+                Colors.black87,
+              ],
+            ),
+          ),
+          child: Center(
+            child: Text(
+              'Welcome to Shopping App',
+              style: GoogleFonts.lato(
+                textStyle: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
               ),
             ),
+          ),  
           
         )
       )

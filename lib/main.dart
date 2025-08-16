@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 // import 'package:flutter_application_1/currency_converter_materia_page.dart';
-import 'package:flutter_application_1/weather_app/weather_app_page.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:flutter_application_1/forms/form_page.dart';
 import 'package:flutter_application_1/shopping_app/screens/shopping_app.dart';
 
 void main() async{
