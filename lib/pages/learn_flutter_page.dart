@@ -1,4 +1,4 @@
-import 'dart:nativewrappers/_internal/vm/lib/internal_patch.dart';
+
 
 import 'package:flutter/material.dart';
 
@@ -53,7 +53,7 @@ class _LearnFlutterPageState extends State<LearnFlutterPage> {
           // types of button
           ElevatedButton(
             onPressed: (){
-              printToConsole('Hello');
+              print(" Elevated Button Pressed");
             }
           , child: 
           const Text('Hello elevated button', 
