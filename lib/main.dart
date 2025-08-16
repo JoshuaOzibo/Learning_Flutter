@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/pages/home_page.dart';
+import 'package:flutter_application_1/pages/profile_page.dart';
 // import 'package:flutter_application_1/currency_converter_materia_page.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 // import 'package:flutter_application_1/shopping_app/screens/shopping_app.dart';
@@ -51,6 +52,11 @@ class _MyWidgetState extends State<MyWidget> {
   int currentPage = 0;
   int count = 0;
 
+  List<Widget> pages = const [
+    HomePage(),
+    ProfilePage()
+  ];
+
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +67,7 @@ class _MyWidgetState extends State<MyWidget> {
         title: Text("Flutter", style: TextStyle(color: Colors.white),),
       ),
 
-      body: const HomePage(),
+      body: pages[currentPage],
 
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.blue,
