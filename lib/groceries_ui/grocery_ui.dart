@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/groceries_ui/components/popular_grocery.dart';
 import 'package:flutter_application_1/groceries_ui/components/select_grocery.dart';
 
 class GroceryUi extends StatelessWidget {
@@ -142,6 +143,33 @@ class GroceryUi extends StatelessWidget {
                 ],
               ),
             ),
+
+            SizedBox(height: 20),
+            // Row
+
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Popular Groceries',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+                TextButton(
+                  onPressed: () {},
+                  child: Row(
+                    children: [
+                      Text('See All'),
+                      SizedBox(width: 5),
+                      Icon(Icons.arrow_forward_ios, size: 16),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+
+            // ListView.builder
+
+            PopularGrocery()
           ],
         ),
       ),
