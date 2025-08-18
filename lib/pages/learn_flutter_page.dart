@@ -32,14 +32,26 @@ class _LearnFlutterPageState extends State<LearnFlutterPage> {
           children: [
             Image.asset("images/learningImage.png"),
             SizedBox(height: 20),
+            
             const Divider(color: Colors.black),
             Container(
+              //  style: BorderRadius.all('20'),
               height: 200,
               width: double.infinity,
               margin: EdgeInsets.all(20),
               padding: EdgeInsets.all(10.0),
-              // decoration: ,
-              color: Colors.blue,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                color: Colors.blue,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.5),
+                    blurRadius: 10,
+                    offset: Offset(0, 5), // changes position of shadow
+                  ),
+                ],
+              ),
+              
               child: const Center(child: Text("Hello from my container")),
             ),
         
@@ -69,8 +81,7 @@ class _LearnFlutterPageState extends State<LearnFlutterPage> {
             ),
         
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-            
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Icon(Icons.fireplace),
                 Text('Hello from row', style: TextStyle(color: Colors.blue)),
