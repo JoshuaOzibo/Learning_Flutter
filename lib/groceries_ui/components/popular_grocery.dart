@@ -6,39 +6,49 @@ class PopularGrocery extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(5),
-        color: Colors.white,
+  decoration: BoxDecoration(
+    borderRadius: BorderRadius.circular(5),
+    color: Colors.white,
+  ),
+  padding: const EdgeInsets.all(10),
+  child: Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      // 🔹 Image container with full width + gray background
+      Container(
+        width: double.infinity,
+        color: Colors.grey[300], // light gray background
+        padding: const EdgeInsets.all(10), // optional, gives spacing around image
+        child: Image.asset(
+          'images/tomato.png',
+          height: 100,
+          fit: BoxFit.contain, // keep image inside
+        ),
       ),
-      padding: const EdgeInsets.all(10),
-      // margin: const EdgeInsets.only(right: 10),
-      child: Column(
+
+      const SizedBox(height: 10), // spacing between image and text
+
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          // Image
-          Image.asset(
-            'images/tomato.png',
-            height: 100,
-            width: 100,
+          Text(
+            'Tomato',
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
           ),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              // Text
-              Text(
-                'Tomatoes',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-              // rating icon
               Icon(Icons.star, color: Colors.black),
-              // RatingBarIndicator(
               Text(
                 '4.2',
                 style: TextStyle(fontSize: 16, color: Colors.green),
               ),
             ],
-          )
+          ),
         ],
-      )
-    );
+      ),
+    ],
+  ),
+);
+
   }
 }
