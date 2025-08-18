@@ -23,7 +23,9 @@ class ProfileCard extends StatelessWidget {
                 ),
               ),
               Positioned(
-                left: (MediaQuery.of(context).size.width / 2) - 75, // center horizontally
+                left:
+                    (MediaQuery.of(context).size.width / 2) -
+                    75, // center horizontally
                 bottom: -75, // overflow below the card
                 child: Container(
                   width: 150,
@@ -41,16 +43,60 @@ class ProfileCard extends StatelessWidget {
               ),
             ],
           ),
-        ],
-        Center(
-            child: Text("Nife Samuel",
-            style: TextStyle(color: Colors.amber),
-            
+          SizedBox(height: 90),
+          Center(
+            child: Text(
+              "Nife Samuel",
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 28,
+                fontWeight: FontWeight.bold,
+              ),
             ),
-          )
-      ),
+          ),
 
-      
+          Center(
+            child: Text(
+              "Product Designer",
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 15,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+
+          SizedBox(height: 10),
+
+          SizedBox(height: 2, width: 300, child: ColoredBox(color: Colors.red)),
+          SizedBox(height: 10),
+          Center(
+            child: Container(
+              margin: EdgeInsetsDirectional.only(start: 80, end: 80),
+              child: Text(
+                "Profile Card UI ... Just completed an incredible project! I'm excited to share this with you all, as it could be a valuable resource for your website or mobile .. by chisom • Free.",
+                style: TextStyle(fontSize: 10, fontWeight: FontWeight.normal),
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ),
+
+          SizedBox(height: 10),
+
+          Center(
+            child: Row(
+              spacing: 20,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(Icons.account_balance_wallet, size: 30, color: Colors.red),
+                Icon(Icons.account_balance_wallet, size: 30, color: Colors.red),
+                Icon(Icons.account_balance_wallet, size: 30, color: Colors.red),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
+// 
