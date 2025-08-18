@@ -4,6 +4,7 @@ import 'package:flutter_application_1/pages/profile_card.dart';
 import 'package:flutter_application_1/pages/profile_page.dart';
 // import 'package:flutter_application_1/currency_converter_materia_page.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_application_1/groceries_ui/grocery_ui.dart';
 // import 'package:flutter_application_1/shopping_app/screens/shopping_app.dart';
 
 void main() async{
@@ -36,7 +37,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.green
         ),
 
-        home: const ProfileCard()
+        home: const GroceryUi(), // HomePage(), // ProfileCard(), // CurrencyConverterMateriaPage(), // ShoppingApp(),
       );
     }
 }
