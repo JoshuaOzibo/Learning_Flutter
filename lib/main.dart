@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/pages/home_page.dart';
-import 'package:flutter_application_1/pages/profile_card.dart';
+// import 'package:flutter_application_1/pages/profile_card.dart';
 import 'package:flutter_application_1/pages/profile_page.dart';
 // import 'package:flutter_application_1/currency_converter_materia_page.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
