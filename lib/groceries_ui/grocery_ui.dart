@@ -41,7 +41,6 @@ class GroceryUi extends StatelessWidget {
       body: ListView(
         padding: EdgeInsets.all(10),
         children: [
-          // 🟠 Heading
           RichText(
             text: TextSpan(
               style: TextStyle(
@@ -62,26 +61,95 @@ class GroceryUi extends StatelessWidget {
 
           SizedBox(height: 20),
 
-          // 🟢 Fruits / Vegetables card
+          // Fruits / Vegetables card
           Container(
             height: 200,
             width: double.infinity,
+            decoration: BoxDecoration(
+              color: const Color.fromARGB(255, 255, 240, 105),
+              borderRadius: BorderRadius.circular(20),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.2),
+                  spreadRadius: 2,
+                  blurRadius: 5,
+                  offset: Offset(0, 3), // changes position of shadow
+                ),
+              ],
+            ),
             child: Row(
               children: [
                 Expanded(
                   child: Container(
                     decoration: BoxDecoration(
-                      color: Colors.orange[100],
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(20),
                         bottomLeft: Radius.circular(20),
                       ),
                     ),
                     child: Align(
-                      alignment: Alignment.centerLeft,
+                     
                       child: Padding(
                         padding: EdgeInsets.all(8.0),
-                        child: Text('Fruits', style: TextStyle(fontSize: 18)),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              padding: EdgeInsets.only(left: 15, right: 15, top: 3, bottom: 3),
+                              decoration: BoxDecoration(
+                                color: const Color.fromARGB(255, 192, 255, 114),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Text(
+                                '25% Discount',
+                                style: TextStyle(
+                                  fontSize: 15, 
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                            SizedBox(height: 10),
+                            Text(
+                              'Shop fresh, Eat well, Live better.',
+                              style: TextStyle(
+                                fontSize: 20,
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold
+                              ),
+                             
+                            ),
+
+                            SizedBox(height: 10),
+                            ElevatedButton(
+                              onPressed: () {},
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor:
+                                    Colors.orange, // Button background color
+                                foregroundColor:
+                                    Colors.white, // Text/Icon color
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 18,
+                                  vertical: 8,
+                                ),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(
+                                    6,
+                                  ), // Rounded corners
+                                ),
+                                elevation: 3, // Shadow effect
+                              ),
+                              child: const Text(
+                                'Shop Now',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -89,7 +157,7 @@ class GroceryUi extends StatelessWidget {
                 Expanded(
                   child: Container(
                     decoration: BoxDecoration(
-                      color: Colors.green[100],
+                   
                       borderRadius: BorderRadius.only(
                         topRight: Radius.circular(20),
                         bottomRight: Radius.circular(20),
@@ -98,10 +166,11 @@ class GroceryUi extends StatelessWidget {
                     child: Align(
                       alignment: Alignment.centerRight,
                       child: Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Text(
-                          'Vegetables',
-                          style: TextStyle(fontSize: 18),
+                        padding: EdgeInsets.all(2.0),
+                        child: Image.asset(
+                          'images/cucumba.png',
+                          height: 120,
+                          fit: BoxFit.cover,
                         ),
                       ),
                     ),
@@ -113,7 +182,7 @@ class GroceryUi extends StatelessWidget {
 
           SizedBox(height: 20),
 
-          // 🟣 Horizontal scroll for grocery filters
+          // Horizontal scroll for grocery filters
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Row(
@@ -134,7 +203,7 @@ class GroceryUi extends StatelessWidget {
 
           SizedBox(height: 20),
 
-          // 🔵 Section header
+          //Section header
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -146,33 +215,82 @@ class GroceryUi extends StatelessWidget {
                 onPressed: () {},
                 child: Row(
                   children: [
-                    Text('See All'),
+                    Text('See All', style: TextStyle(color: Colors.black)),
                     SizedBox(width: 5),
-                    Icon(Icons.arrow_forward_ios, size: 16),
+                    Icon(
+                      Icons.arrow_forward_ios,
+                      size: 16,
+                      color: Colors.black,
+                    ),
                   ],
                 ),
               ),
             ],
           ),
 
-          // 🔴 Grid of groceries
+          // Grid of groceries
           GridView.count(
-            crossAxisCount: 2, // 2 items per row
-            shrinkWrap: true, // ✅ ensures grid takes only needed height
-            physics: NeverScrollableScrollPhysics(), // ✅ no nested scrolling
-            crossAxisSpacing: 10, // ✅ spacing between columns
-            mainAxisSpacing: 10, // ✅ spacing between rows
+            crossAxisCount: 2,
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            crossAxisSpacing: 10,
+            mainAxisSpacing: 10,
             children: [
-              PopularGrocery(),
-              PopularGrocery(),
-              PopularGrocery(),
-              PopularGrocery(),
-              PopularGrocery(),
-              PopularGrocery(),
-              PopularGrocery(),
-              PopularGrocery(),
+              PopularGrocery(
+                image: 'images/tomato.png',
+                groceryName: 'Tomanto',
+                price: '₦20,000',
+                rating: '4.2',
+              ),
+              PopularGrocery(
+                image: 'images/carrot.png',
+                groceryName: 'Carrot',
+                price: '₦25,000',
+                rating: '4.5',
+              ),
+              PopularGrocery(
+                image: 'images/cucumba.png',
+                groceryName: 'Cucumba',
+                price: '₦18,000',
+                rating: '3.8',
+              ),
+              PopularGrocery(
+                image: 'images/meat.png',
+                groceryName: 'Stake',
+                price: '₦30,000',
+                rating: '4.7',
+              ),
+              PopularGrocery(
+                image: 'images/tomato.png',
+                groceryName: 'Tomanto',
+                price: '₦10,000',
+                rating: '4.1',
+              ),
+              PopularGrocery(
+                image: 'images/carrot.png',
+                groceryName: 'Carrot',
+                price: '₦15,000',
+                rating: '4.7',
+              ),
             ],
           ),
+
+          // bottom Bar
+          SizedBox(height: 20),
+
+          // BottomAppBar()
+        ],
+      ),
+
+      bottomNavigationBar: NavigationBar(
+        destinations: const [
+          NavigationDestination(icon: Icon(Icons.home), label: 'Home'),
+          NavigationDestination(icon: Icon(Icons.category), label: 'Category'),
+          NavigationDestination(
+            icon: Icon(Icons.heart_broken),
+            label: 'Favourite',
+          ),
+          NavigationDestination(icon: Icon(Icons.person), label: 'Profile'),
         ],
       ),
     );
