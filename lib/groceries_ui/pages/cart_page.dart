@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/groceries_ui/components/cart_card.dart';
+
 
 class CartPage extends StatelessWidget {
   const CartPage({super.key});
@@ -60,7 +62,7 @@ class CartPage extends StatelessWidget {
             margin: EdgeInsets.symmetric(horizontal: 20),
             child: Column(
               children: [
-                Text('data')
+                CartCard(image: 'images/carrot.png')
               
               ]),
           ),
