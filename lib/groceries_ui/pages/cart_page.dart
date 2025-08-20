@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/groceries_ui/components/cart_card.dart';
 
-
 class CartPage extends StatelessWidget {
   const CartPage({super.key});
 
@@ -58,13 +57,61 @@ class CartPage extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          SizedBox(height: 20),
           Container(
             margin: EdgeInsets.symmetric(horizontal: 20),
             child: Column(
               children: [
-                CartCard(image: 'images/carrot.png')
-              
-              ]),
+                CartCard(image: 'images/carrot.png'),
+                CartCard(image: 'images/tomato.png'),
+
+                // coupon input
+                TextField(
+                  decoration: InputDecoration(
+                    hintStyle: TextStyle(color: Colors.grey),
+                    hintText: "Enter Discount Code",
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 20),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(50)),
+                    ),
+                    suffixIcon: ClipRRect(
+                      borderRadius: const BorderRadius.only(
+                        topRight: Radius.circular(50),
+                        bottomRight: Radius.circular(50),
+                      ),
+                      child: SizedBox(
+                        child: ElevatedButton(
+                          onPressed: () {},
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color.fromARGB(255, 40, 100, 43),
+                            // elevation: 0,
+                            padding: const EdgeInsets.symmetric(horizontal: 20),
+                            shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.only(
+                                topRight: Radius.circular(50),
+                                bottomRight: Radius.circular(50),
+                              ),
+                            ),
+                          ),
+                          child: const Text("Apply", 
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold
+                            ), 
+                          
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+
+                // order summary
+                SizedBox(height: 30,),
+
+                
+              ],
+            ),
           ),
 
           Container(
