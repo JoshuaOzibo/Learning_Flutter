@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/groceries_ui/components/cart_card.dart';
+import 'package:flutter_application_1/groceries_ui/components/order_summary.dart';
 
 class CartPage extends StatelessWidget {
   const CartPage({super.key});
@@ -66,6 +67,7 @@ class CartPage extends StatelessWidget {
                 CartCard(image: 'images/tomato.png'),
 
                 // coupon input
+                SizedBox(height: 20),
                 TextField(
                   decoration: InputDecoration(
                     hintStyle: TextStyle(color: Colors.grey),
@@ -83,7 +85,12 @@ class CartPage extends StatelessWidget {
                         child: ElevatedButton(
                           onPressed: () {},
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color.fromARGB(255, 40, 100, 43),
+                            backgroundColor: const Color.fromARGB(
+                              255,
+                              40,
+                              100,
+                              43,
+                            ),
                             // elevation: 0,
                             padding: const EdgeInsets.symmetric(horizontal: 20),
                             shape: const RoundedRectangleBorder(
@@ -93,12 +100,12 @@ class CartPage extends StatelessWidget {
                               ),
                             ),
                           ),
-                          child: const Text("Apply", 
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold
-                            ), 
-                          
+                          child: const Text(
+                            "Apply",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       ),
@@ -107,16 +114,16 @@ class CartPage extends StatelessWidget {
                 ),
 
                 // order summary
-                SizedBox(height: 30,),
-
-                
+                SizedBox(height: 30),
+                OrderSummary(),
+                SizedBox(height: 30),
               ],
             ),
           ),
 
           Container(
             width: double.infinity,
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+            padding: EdgeInsets.only(left: 20, right: 20, top: 20, bottom: 35),
             decoration: BoxDecoration(
               color: Colors.white,
               border: Border(
