@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/groceries_ui/pages/cart_page.dart';
 import 'package:flutter_application_1/groceries_ui/pages/selectedItem_page.dart';
 import 'package:flutter_application_1/pages/home_page.dart';
 // import 'package:flutter_application_1/pages/profile_card.dart';
@@ -38,7 +39,7 @@ class MyApp extends StatelessWidget {
         //   primarySwatch: Colors.green
         // ),
 
-        home: const SelecteditemPage()               // GroceryUi(), // HomePage(), // ProfileCard(), // CurrencyConverterMateriaPage(), // ShoppingApp(),
+        home: const CartPage()          //SelecteditemPage() // GroceryUi(), // HomePage(), // ProfileCard(), // CurrencyConverterMateriaPage(), // ShoppingApp(),
       );
     }
 }
