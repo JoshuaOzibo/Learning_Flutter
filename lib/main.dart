@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
         //   primarySwatch: Colors.green
         // ),
 
-        home: const CartPage()          //SelecteditemPage() // GroceryUi(), // HomePage(), // ProfileCard(), // CurrencyConverterMateriaPage(), // ShoppingApp(),
+        home: const GroceryUi()                //CartPage(),   //SelecteditemPage() // GroceryUi(), // HomePage(), // ProfileCard(), // CurrencyConverterMateriaPage(), // ShoppingApp(),
       );
     }
 }

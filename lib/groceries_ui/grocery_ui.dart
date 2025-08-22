@@ -88,7 +88,6 @@ class GroceryUi extends StatelessWidget {
                       ),
                     ),
                     child: Align(
-                     
                       child: Padding(
                         padding: EdgeInsets.all(8.0),
                         child: Column(
@@ -96,7 +95,12 @@ class GroceryUi extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(
-                              padding: EdgeInsets.only(left: 15, right: 15, top: 3, bottom: 3),
+                              padding: EdgeInsets.only(
+                                left: 15,
+                                right: 15,
+                                top: 3,
+                                bottom: 3,
+                              ),
                               decoration: BoxDecoration(
                                 color: const Color.fromARGB(255, 192, 255, 114),
                                 borderRadius: BorderRadius.circular(10),
@@ -104,7 +108,7 @@ class GroceryUi extends StatelessWidget {
                               child: Text(
                                 '25% Discount',
                                 style: TextStyle(
-                                  fontSize: 15, 
+                                  fontSize: 15,
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -116,9 +120,8 @@ class GroceryUi extends StatelessWidget {
                               style: TextStyle(
                                 fontSize: 20,
                                 color: Colors.black,
-                                fontWeight: FontWeight.bold
+                                fontWeight: FontWeight.bold,
                               ),
-                             
                             ),
 
                             SizedBox(height: 10),
@@ -157,7 +160,6 @@ class GroceryUi extends StatelessWidget {
                 Expanded(
                   child: Container(
                     decoration: BoxDecoration(
-                   
                       borderRadius: BorderRadius.only(
                         topRight: Radius.circular(20),
                         bottomRight: Radius.circular(20),

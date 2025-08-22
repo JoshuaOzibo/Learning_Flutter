@@ -18,7 +18,7 @@ class _LearnFlutterPageState extends State<LearnFlutterPage> {
         backgroundColor: Colors.blue,
         title: const Text('Learn Flutter '),
         // automaticallyImplyLeading: false, // this is use to automatically hide automaticallyImplyLeading
-        // lets create out own leading
+        // lets create out our own leading
         automaticallyImplyLeading: false,
         leading: IconButton(
           onPressed: () {

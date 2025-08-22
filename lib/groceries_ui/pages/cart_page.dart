@@ -14,14 +14,14 @@ class CartPage extends StatelessWidget {
           child: Text(
             "Cart",
             style: TextStyle(
-              color: Colors.black, // change text color
-              fontSize: 18, // change font size
+              color: Colors.black,
+              fontSize: 18,
               fontWeight: FontWeight.bold,
             ),
           ),
         ),
         backgroundColor: Color.fromARGB(255, 239, 239, 239),
-        toolbarHeight: 70, // to add height to the Appbar
+        toolbarHeight: 70,
         leadingWidth: 68,
         leading: Center(
           child: Container(
@@ -31,7 +31,9 @@ class CartPage extends StatelessWidget {
               borderRadius: BorderRadius.circular(5),
             ),
             child: IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
               icon: Icon(Icons.arrow_back_ios_new),
               color: Colors.black,
             ),
@@ -46,7 +48,9 @@ class CartPage extends StatelessWidget {
               borderRadius: BorderRadius.circular(5),
             ),
             child: IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
               icon: Icon(Icons.shopping_cart),
               color: Colors.black,
             ),
