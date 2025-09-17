@@ -11,8 +11,11 @@ class TodoHome extends StatefulWidget {
 
 class _TodoHomeState extends State<TodoHome> {
   final todoItem = ['Joshua', 'Michael'];
-  final TextEditingController textEditingController = TextEditingController();
   final String todoText = '';
+  void onPressAdd(String newTodo){
+      print(todoText);
+      print(newTodo);
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,6 +24,7 @@ class _TodoHomeState extends State<TodoHome> {
         spacing: 10,
         children: [
           TodoForm(
+            onSubmit: onPressAdd,
             todoText: todoText
             ),
           ...todoItem.map((item) => TodoCard(text: item)),

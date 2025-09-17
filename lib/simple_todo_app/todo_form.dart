@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 class TodoForm extends StatefulWidget {
-  const TodoForm({super.key, required this.todoText});
+  const TodoForm({super.key, required this.todoText, required this.onSubmit});
   final String todoText;
+  final ValueChanged<String> onSubmit;
 
   @override
   State<TodoForm> createState() => _TodoFormState();
@@ -10,7 +11,13 @@ class TodoForm extends StatefulWidget {
 
 class _TodoFormState extends State<TodoForm> {
   final TextEditingController textEditingController = TextEditingController();
-  late todoT
+
+  @override
+  void initState() {
+    super.initState();
+    textEditingController.text = widget.todoText;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -32,7 +39,8 @@ class _TodoFormState extends State<TodoForm> {
             height: 50,
             width: double.infinity,
             child: ElevatedButton(onPressed: () => setState(() {
-                todoText = textEditingController.text;
+                final newTodo = textEditingController.text;
+                widget.onSubmit(newTodo);
             }), child: Text('Add Todo')),
           ),
         ],
