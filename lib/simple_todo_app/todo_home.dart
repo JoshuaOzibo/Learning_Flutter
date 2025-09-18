@@ -11,11 +11,12 @@ class TodoHome extends StatefulWidget {
 
 class _TodoHomeState extends State<TodoHome> {
   final todoItem = ['Joshua', 'Michael'];
-  final String todoText = '';
-  void onPressAdd(String newTodo){
-      print(todoText);
-      print(newTodo);
+  void onPressAdd(String newTodo) {
+    setState(() {
+      todoItem.add(newTodo);
+    });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,10 +24,7 @@ class _TodoHomeState extends State<TodoHome> {
       body: Column(
         spacing: 10,
         children: [
-          TodoForm(
-            onSubmit: onPressAdd,
-            todoText: todoText
-            ),
+          TodoForm(onSubmit: onPressAdd),
           ...todoItem.map((item) => TodoCard(text: item)),
         ],
       ),
