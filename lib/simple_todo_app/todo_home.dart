@@ -13,6 +13,7 @@ class TodoHome extends StatefulWidget {
 class _TodoHomeState extends State<TodoHome> {
   final todoItem = ['Work'];
   final favoriteItems = [];
+  late String alreadyExist = '';
   void onPressAdd(String newTodo) {
     setState(() {
       todoItem.add(newTodo);
@@ -27,7 +28,13 @@ class _TodoHomeState extends State<TodoHome> {
 
   void onFavoriteSelected(String favriteText) {
     setState(() {
-      favoriteItems.add(favriteText);
+      if (favoriteItems.contains(favriteText)) {
+        print(alreadyExist);
+        alreadyExist = favriteText;
+      } else {
+        print(alreadyExist);
+        favoriteItems.add(favriteText);
+      }
     });
   }
 
