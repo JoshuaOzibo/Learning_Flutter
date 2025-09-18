@@ -17,6 +17,12 @@ class _TodoHomeState extends State<TodoHome> {
     });
   }
 
+  void onDeleteTodo(String name) {
+    setState(() {
+      todoItem.removeWhere((test) => test == name);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,7 +31,12 @@ class _TodoHomeState extends State<TodoHome> {
         spacing: 10,
         children: [
           TodoForm(onSubmit: onPressAdd),
-          ...todoItem.map((item) => TodoCard(text: item)),
+          ...todoItem.map(
+            (item) => TodoCard(
+              text: item,
+              tapDeleteButton: ((item) => onDeleteTodo(item)),
+            ),
+          ),
         ],
       ),
     );

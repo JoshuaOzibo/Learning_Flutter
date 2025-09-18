@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
 class TodoCard extends StatelessWidget {
-  const TodoCard({super.key, required this.text});
+  const TodoCard({super.key, required this.text, required this.tapDeleteButton});
 
   final String text;
+  final ValueChanged<String> tapDeleteButton;
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +17,13 @@ class TodoCard extends StatelessWidget {
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [Text(text), Icon(Icons.delete)],
+        children: [
+          Text(text), 
+          GestureDetector(
+            onTap: () => tapDeleteButton(text),
+            child: Icon(Icons.delete),
+          )
+        ],
       ),
     );
   }
