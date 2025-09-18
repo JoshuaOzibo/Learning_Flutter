@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/simple_todo_app/favourite_todo_item.dart';
 import 'package:flutter_application_1/simple_todo_app/todo_card.dart';
 import 'package:flutter_application_1/simple_todo_app/todo_form.dart';
 
@@ -10,7 +11,8 @@ class TodoHome extends StatefulWidget {
 }
 
 class _TodoHomeState extends State<TodoHome> {
-  final todoItem = ['Joshua', 'Michael'];
+  final todoItem = ['Work'];
+  final favoriteItems = [];
   void onPressAdd(String newTodo) {
     setState(() {
       todoItem.add(newTodo);
@@ -23,21 +25,67 @@ class _TodoHomeState extends State<TodoHome> {
     });
   }
 
+  void onFavoriteSelected(String favriteText) {
+    setState(() {
+      favoriteItems.add(favriteText);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: Column(
-        spacing: 10,
-        children: [
-          TodoForm(onSubmit: onPressAdd),
-          ...todoItem.map(
-            (item) => TodoCard(
-              text: item,
-              tapDeleteButton: ((item) => onDeleteTodo(item)),
+      body: Container(
+        margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+        child: Column(
+          spacing: 10,
+          children: [
+            TodoForm(onSubmit: onPressAdd),
+            SizedBox(height: 20),
+            ...todoItem.map(
+              (item) => TodoCard(
+                text: item,
+                tapFavriteButton: (value) => onFavoriteSelected(value),
+                tapDeleteButton: ((item) => onDeleteTodo(item)),
+              ),
             ),
-          ),
-        ],
+            SizedBox(height: 40),
+
+            Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Favorite Todo',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    Icon(Icons.heart_broken),
+                  ],
+                ),
+                SizedBox(height: 20),
+                if (favoriteItems.isEmpty)
+                  Center(
+                    child: Text(
+                      'Favrite item is empty',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+
+                if (favoriteItems.isNotEmpty)
+                  ...favoriteItems.map(
+                    (item) => FavouriteTodoItem(favrite: item),
+                  ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
