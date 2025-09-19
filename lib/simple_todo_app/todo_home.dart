@@ -29,8 +29,9 @@ class _TodoHomeState extends State<TodoHome> {
   void onFavoriteSelected(String favriteText) {
     setState(() {
       if (favoriteItems.contains(favriteText)) {
-        print(alreadyExist);
+        
         alreadyExist = favriteText;
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('$favriteText is already in favourite')));
       } else {
         print(alreadyExist);
         favoriteItems.add(favriteText);
