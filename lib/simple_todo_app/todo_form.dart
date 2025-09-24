@@ -39,8 +39,8 @@ class _TodoFormState extends State<TodoForm> {
             child: ElevatedButton(
               onPressed: () => setState(() {
                 final newTodo = textEditingController.text;
-                if(newTodo.isNotEmpty){
-                widget.onSubmit(newTodo);
+                if (newTodo.isNotEmpty) {
+                  widget.onSubmit(newTodo);
                 }
               }),
               child: Text('Add Todo'),
