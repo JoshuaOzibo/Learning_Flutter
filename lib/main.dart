@@ -1,17 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/converter.dart';
 import 'package:flutter_application_1/currency_converter_materia_page.dart';
+import 'package:flutter_application_1/simple_cart/repositories/product_repository.dart';
 import 'package:flutter_application_1/simple_cart/simple_cart.dart';
+import 'package:flutter_application_1/simple_cart/viewmodel/product_viewmodel.dart';
 import 'package:flutter_application_1/simple_todo_app/todo_form.dart';
 import 'package:flutter_application_1/simple_todo_app/todo_home.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
   await Hive.initFlutter();
   var box = await Hive.openBox('testBox');
   
   await box.put(1, 'hello');
-  runApp(MyApp());
+  runApp(
+    MultiProvider(providers: [
+      ChangeNotifierProvider(create: (context) => ProductViewmodel(ProductRepository()))
+    ],
+    child: const MyApp(),
+    )
+  );
 }
 
 class MyApp extends StatelessWidget {
