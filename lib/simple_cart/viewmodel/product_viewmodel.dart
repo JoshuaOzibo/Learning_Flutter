@@ -17,9 +17,11 @@ class ProductViewmodel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void addToCart(product) {
-    final hiveBox = Hive.box('cartDetails');
-    hiveBox.put(1, [product]);
-    notifyListeners();
-  }
+ void addToCart(Product product) {
+  final hiveBox = Hive.box<Product>('cartProduct');
+  hiveBox.add(product); 
+  _cart = hiveBox.values.toList();
+  notifyListeners();
+}
+
 }

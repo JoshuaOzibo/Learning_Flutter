@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/converter.dart';
 import 'package:flutter_application_1/currency_converter_materia_page.dart';
 import 'package:flutter_application_1/hive/hive_page.dart';
+import 'package:flutter_application_1/hive/person.dart';
 import 'package:flutter_application_1/simple_cart/repositories/product_repository.dart';
 import 'package:flutter_application_1/simple_cart/simple_cart.dart';
+import 'package:flutter_application_1/simple_cart/viewmodel/hive/product.dart';
 import 'package:flutter_application_1/simple_cart/viewmodel/product_viewmodel.dart';
 import 'package:flutter_application_1/simple_todo_app/todo_form.dart';
 import 'package:flutter_application_1/simple_todo_app/todo_home.dart';
@@ -12,7 +14,9 @@ import 'package:provider/provider.dart';
 
 void main() async {
   await Hive.initFlutter();
-  await Hive.openBox('cartDetails');
+  Hive.registerAdapter(PersonAdapter());
+  Hive.registerAdapter(ProductAdapter());
+  await Hive.openBox<Product>('cartProduct');
   runApp(
     MultiProvider(providers: [
       ChangeNotifierProvider(create: (context) => ProductViewmodel()),

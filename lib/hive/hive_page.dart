@@ -7,7 +7,7 @@ class HivePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     createBox() async {
-      await Hive.openBox('myButtonBox');
+      // await Hive.openBox('myButtonBox');
     }
 
     createBox();
