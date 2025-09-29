@@ -1,4 +1,4 @@
-import 'package:flutter_application_1/simple_cart/static.dart';
+import 'package:flutter_application_1/simple_cart/models/static.dart';
 
 final List<Product> productList = [
   Product(

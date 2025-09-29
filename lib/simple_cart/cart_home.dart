@@ -13,32 +13,37 @@ class CartHome extends StatefulWidget {
 }
 
 class _CartHomeState extends State<CartHome> {
-  @override
-  void initState() {
-    super.initState();
 
-    Future.microtask(() {
-    final vm = Provider.of<ProductViewmodel>(context, listen: false);
-    final value =vm.fetchProduct();
-  });
-  }
+
+fetchFunc() async{
+  await ProductViewmodel().fetch();
+}
+
+@override
+void initState() {
+  super.initState();
+  context.read<ProductViewmodel>().fetch();
+}
+
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: [
-        ...productList.map(
-          (product) => ProductCard(
-            handleTapAcartItem: () => Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => ProductDetails(productDetails: product),
-              ),
+    final vm = context.watch<ProductViewmodel>();
+    print(vm.getProduct);
+    return ListView.builder(
+      itemCount: vm.getProduct.length,
+      itemBuilder: (context, index) {
+        final item = vm.getProduct[index];
+        return ProductCard(
+          product: item,
+          handleTapAcartItem: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ProductDetails(productDetails: item),
             ),
-            product: product,
           ),
-        ),
-      ],
+        );
+      },
     );
   }
 }

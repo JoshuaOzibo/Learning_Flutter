@@ -16,7 +16,7 @@ void main() async {
   await box.put(1, 'hello');
   runApp(
     MultiProvider(providers: [
-      ChangeNotifierProvider(create: (context) => ProductViewmodel(ProductRepository()))
+      ChangeNotifierProvider(create: (context) => ProductViewmodel()),
     ],
     child: const MyApp(),
     )
