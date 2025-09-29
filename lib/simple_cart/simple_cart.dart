@@ -1,23 +1,39 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/simple_cart/card.dart';
-import 'package:flutter_application_1/simple_cart/product_details.dart';
-import 'package:flutter_application_1/simple_cart/static_two.dart';
+import 'package:flutter_application_1/simple_cart/cart_page.dart';
+import 'package:flutter_application_1/simple_cart/cart_home.dart';
 
-class SimpleCart extends StatelessWidget {
+
+class SimpleCart extends StatefulWidget {
   const SimpleCart({super.key});
+
+  @override
+  State<SimpleCart> createState() => _SimpleCartState();
+}
+
+class _SimpleCartState extends State<SimpleCart> {
+   int currentPageIndex = 0;
+
+  final pages = [CartHome(), SimplrCartPage()];
+
+  void handlePageChange(value){
+   setState(() {
+     currentPageIndex = value;
+   });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("Products")),
-      body:  ListView(
-      children: [
-        ...productList.map(( product) => ProductCard(
-          handleTapAcartItem: () => Navigator.push(context, MaterialPageRoute(builder: (context) => ProductDetails(productDetails: product))),
-          product: product)
-          )
-      ],
-    ),
+      body: pages[currentPageIndex],
+
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: currentPageIndex,
+        onTap: (e) => handlePageChange(e),
+        items: [
+        BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+        BottomNavigationBarItem(icon: Icon(Icons.card_travel_outlined), label: 'Cart')
+      ]),
     );
   }
 }
