@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/simple_cart/models/static.dart';
 import 'package:flutter_application_1/simple_cart/repositories/product_repository.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 class ProductViewmodel extends ChangeNotifier {
   final _repository = ProductRepository();
@@ -17,7 +18,8 @@ class ProductViewmodel extends ChangeNotifier {
   }
 
   void addToCart(product) {
-    _cart.add(product);
+    final hiveBox = Hive.box('cartDetails');
+    hiveBox.put(1, [product]);
     notifyListeners();
   }
 }

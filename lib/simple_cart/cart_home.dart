@@ -13,18 +13,15 @@ class CartHome extends StatefulWidget {
 }
 
 class _CartHomeState extends State<CartHome> {
+  fetchFunc() async {
+    await ProductViewmodel().fetch();
+  }
 
-
-fetchFunc() async{
-  await ProductViewmodel().fetch();
-}
-
-@override
-void initState() {
-  super.initState();
-  context.read<ProductViewmodel>().fetch();
-}
-
+  @override
+  void initState() {
+    super.initState();
+    context.read<ProductViewmodel>().fetch();
+  }
 
   @override
   Widget build(BuildContext context) {
