@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/converter.dart';
 import 'package:flutter_application_1/currency_converter_materia_page.dart';
 import 'package:flutter_application_1/hive/hive_page.dart';
+import 'package:flutter_application_1/hive/hive_todo/hive_todo_model.dart';
+import 'package:flutter_application_1/hive/hive_todo/hive_todo_page.dart';
 import 'package:flutter_application_1/hive/person.dart';
 import 'package:flutter_application_1/simple_cart/repositories/product_repository.dart';
 import 'package:flutter_application_1/simple_cart/simple_cart.dart';
@@ -16,13 +18,16 @@ void main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(PersonAdapter());
   Hive.registerAdapter(ProductAdapter());
+  Hive.registerAdapter(HiveTodoModelAdapter());
   await Hive.openBox<Product>('cartProduct');
+  await Hive.openBox<HiveTodoModel>('todoStorage');
   runApp(
-    MultiProvider(providers: [
-      ChangeNotifierProvider(create: (context) => ProductViewmodel()),
-    ],
-    child: const MyApp(),
-    )
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => ProductViewmodel()),
+      ],
+      child: const MyApp(),
+    ),
   );
 }
 
@@ -30,7 +35,8 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) { // //HivePage()
-    return MaterialApp(home: const SimpleCart());
+  Widget build(BuildContext context) {
+    // //HivePage() //const SimpleCart()
+    return MaterialApp(home: HiveTodoPage());
   }
 }
