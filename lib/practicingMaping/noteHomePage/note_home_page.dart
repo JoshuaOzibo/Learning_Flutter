@@ -4,6 +4,7 @@ import 'package:flutter_application_1/practicingMaping/noteHomePage/dummy_note.d
 import 'package:flutter_application_1/practicingMaping/noteHomePage/note_provider.dart';
 import 'package:flutter_application_1/practicingMaping/task_one/note_app_ui_model.dart';
 import 'package:provider/provider.dart';
+import 'package:uuid/uuid.dart';
 
 class NoteHomePage extends StatefulWidget {
   const NoteHomePage({super.key});
@@ -25,6 +26,8 @@ class _NoteHomePageState extends State<NoteHomePage> {
   final TextEditingController contentEditingController =
       TextEditingController();
 
+      var uuid = const Uuid();
+
   final note = DummyNote().uiNote;
   @override
   Widget build(BuildContext context) {
@@ -42,14 +45,14 @@ class _NoteHomePageState extends State<NoteHomePage> {
                 handleSubmitForm: () => {
                   vn.addNote(
                   NoteAppUiModel(
-                    id: vn.notesList.length + 1,
+                    id: uuid.v4(),
                     title: titleEditingController.text,
                     content: contentEditingController.text,
                     createdAt: '05-04-09',
                   ),
                 ),
-                // titleEditingController.clear(),
-                // contentEditingController.clear(),
+                titleEditingController.clear(),
+                contentEditingController.clear(),
                 }
               ),
             ),

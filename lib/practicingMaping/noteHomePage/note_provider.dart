@@ -10,25 +10,26 @@ class NoteProvider extends ChangeNotifier {
   void loadNotes() {
     for (var note in _box.values.toList()) {
       notesList.add(note.toUiModel());
-      notifyListeners();
     }
+      notifyListeners();
     print(_box.values);
-      // _box.clear();
   }
 
   void addNote(NoteAppUiModel note) {
     final convertToDb = NoteAppDbModel.todbModel(note);
+    final key = _box.add(convertToDb);
     _box.add(convertToDb);
+    notesList.add(note);
+    // notesList.add(note.copyWith(id: key));
     notifyListeners();
-     loadNotes();
   }
 
   void deleteNote(NoteAppUiModel note) {
     final index = _box.values.toList().indexWhere((item) => item.id == note.id);
     if(index != -1){
     _box.deleteAt(index);
+    notesList.removeWhere((item) => item.id == note.id);
     notifyListeners();
     }
-     loadNotes();
   }
 }
