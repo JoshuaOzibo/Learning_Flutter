@@ -6,7 +6,7 @@ part 'note_app_db_model.g.dart';
 @HiveType(typeId: 5)
 class NoteAppDbModel {
   @HiveField(0)
-  int id;
+  String id;
   @HiveField(1)
   String title;
   @HiveField(2)

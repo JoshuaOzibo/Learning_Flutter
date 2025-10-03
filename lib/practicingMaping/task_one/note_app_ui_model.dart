@@ -1,5 +1,5 @@
 class NoteAppUiModel {
-  int id;
+  String id;
   String title;
   String content;
   String createdAt;
