@@ -1,7 +1,7 @@
 class TodoUiModel {
   String id;
   String task;
-  bool isCompleted = false;
+  bool isCompleted;
 
   TodoUiModel({
     required this.id,

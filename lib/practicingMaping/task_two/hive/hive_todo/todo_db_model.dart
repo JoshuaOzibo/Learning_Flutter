@@ -10,7 +10,7 @@ class TodoDbModel {
   @HiveField(1)
   String task;
   @HiveField(2)
-  bool isCompleted = false;
+  bool isCompleted;
 
   TodoDbModel({
     required this.id,
