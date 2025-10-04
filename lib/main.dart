@@ -23,6 +23,7 @@ void main() async {
   // Hive.registerAdapter(PersonAdapter());
   Hive.registerAdapter(NoteAppDbModelAdapter());
   await Hive.openBox<NoteAppDbModel>('noteBox');
+  await Hive.openBox<TodoDbModelAdapter>('todoBox');
   // NoteProvider().loadBoxFunc();
   // Hive.registerAdapter(ProductAdapter());
   // Hive.registerAdapter(HiveTodoModelAdapter());
