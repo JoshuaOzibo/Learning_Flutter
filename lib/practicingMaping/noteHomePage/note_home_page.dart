@@ -38,7 +38,7 @@ class _NoteHomePageState extends State<NoteHomePage> {
         child: Column(
           children: [
             SizedBox(
-              height: 300,
+              height: 400,
               child: NoteFormField(
                 titleEditingController: titleEditingController,
                 contentEditingController: contentEditingController,
@@ -63,7 +63,7 @@ class _NoteHomePageState extends State<NoteHomePage> {
             Text('Note List is empty'),
 
             SizedBox(
-              height: 200,
+              height: 400,
               child: ListView.builder(
                 itemCount: vn.notesList.length,
                 itemBuilder: (context, index) {

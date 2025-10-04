@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/converter.dart';
 import 'package:flutter_application_1/currency_converter_materia_page.dart';
-import 'package:flutter_application_1/hive/hive_page.dart';
-import 'package:flutter_application_1/hive/hive_todo/hive_todo_model.dart';
-import 'package:flutter_application_1/hive/hive_todo/hive_todo_page.dart';
-import 'package:flutter_application_1/hive/person.dart';
+import 'package:flutter_application_1/practicingMaping/task_two/hive/hive_page.dart';
+import 'package:flutter_application_1/practicingMaping/task_two/hive/hive_todo/todo_db_model.dart';
+import 'package:flutter_application_1/practicingMaping/task_two/hive/hive_todo/todo_home_page.dart';
+import 'package:flutter_application_1/practicingMaping/task_two/hive/person.dart';
 import 'package:flutter_application_1/practicingMaping/noteHomePage/note_home_page.dart';
 import 'package:flutter_application_1/practicingMaping/noteHomePage/note_provider.dart';
 import 'package:flutter_application_1/practicingMaping/task_one/note_app_db_model.dart';
@@ -46,7 +46,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // //HivePage() //const SimpleCart() //  HiveTodoPage()
-    return MaterialApp(home: NoteHomePage());
+    // //HivePage() //const SimpleCart() //  HiveTodoPage() //NoteHomePage()
+    return MaterialApp(home: TodoHomePage());
   }
 }
