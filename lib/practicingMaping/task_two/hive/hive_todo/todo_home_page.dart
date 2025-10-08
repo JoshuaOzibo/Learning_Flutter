@@ -43,8 +43,6 @@ class _TodoHomePageState extends State<TodoHomePage> {
         children: [
           SizedBox(height: 100),
           TodoFormPage(handleSubmit: (item) => handleSubmit(item)),
-
-
           TodoListPage(),
         ],
       ),

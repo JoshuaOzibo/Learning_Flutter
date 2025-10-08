@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 
 class TodoCard extends StatelessWidget {
-  const TodoCard({super.key});
+  const TodoCard({super.key, required this.title, required this.isCompleted});
+
+  final bool isCompleted;
+  final String title;
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: EdgeInsets.symmetric(vertical: 2),
       padding: EdgeInsets.all(30),
       decoration: BoxDecoration(
         color: Colors.cyan,
@@ -13,15 +17,15 @@ class TodoCard extends StatelessWidget {
       ),
       child: Column(
         children: [
-          Text('First task'),
+          Text(title),
           Row(
             children: [
               MaterialButton(
-                child: Text('completed'),
+                child: Text('completed($isCompleted)'),
                 onPressed: () => print('object'),
               ),
               MaterialButton(
-                child: Text('pending'),
+                child: Text('pending(${!isCompleted})'),
                 onPressed: () => print('object'),
               ),
               GestureDetector(

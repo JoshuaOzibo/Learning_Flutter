@@ -9,11 +9,15 @@ class TodoListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final vn = context.watch<TodoProvider>();
+    print(vn.todoList);
     return Expanded(
       child: ListView(
         children: [
           if (vn.todoList.isEmpty) Text('todo items list is empty'),
-          ...vn.todoList.map((item) => TodoCard()),
+          ...vn.todoList.map((item) => TodoCard(
+            title: item.task,
+            isCompleted: item.isCompleted,
+            )),
         ],
       ),
     );

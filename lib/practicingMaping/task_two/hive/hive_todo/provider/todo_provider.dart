@@ -13,6 +13,7 @@ class TodoProvider extends ChangeNotifier {
     for(var dbItems in getdb.values.toList()){
       todoList.add(dbItems.toUiModel());
     }
+      notifyListeners();
     print(getdb.values);
   }
 

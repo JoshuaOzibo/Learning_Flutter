@@ -28,6 +28,7 @@ class TodoFormPage extends StatelessWidget {
           shape: BeveledRectangleBorder(borderRadius: BorderRadiusGeometry.circular(2)),
           onPressed: () {
             handleSubmit(todoEditingController.text);
+            todoEditingController.clear();
           },
           child: Text('add todo', style: TextStyle(
             color: Colors.white, 
