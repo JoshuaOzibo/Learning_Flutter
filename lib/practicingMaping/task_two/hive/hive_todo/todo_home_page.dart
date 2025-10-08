@@ -18,9 +18,8 @@ class _TodoHomePageState extends State<TodoHomePage> {
   @override
   void initState() {
     super.initState();
-
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      
+      context.read<TodoProvider>().loadTodoToList();
     });
   }
 
@@ -42,7 +41,10 @@ class _TodoHomePageState extends State<TodoHomePage> {
     return Scaffold(
       body: Column(
         children: [
-          TodoFormPage(handleSubmit: (item) => handleSubmit),
+          SizedBox(height: 100),
+          TodoFormPage(handleSubmit: (item) => handleSubmit(item)),
+
+
           TodoListPage(),
         ],
       ),

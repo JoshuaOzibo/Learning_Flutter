@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/converter.dart';
 import 'package:flutter_application_1/currency_converter_materia_page.dart';
 import 'package:flutter_application_1/practicingMaping/task_two/hive/hive_page.dart';
+import 'package:flutter_application_1/practicingMaping/task_two/hive/hive_todo/provider/todo_provider.dart';
 import 'package:flutter_application_1/practicingMaping/task_two/hive/hive_todo/todo_db_model.dart';
 import 'package:flutter_application_1/practicingMaping/task_two/hive/hive_todo/todo_home_page.dart';
 import 'package:flutter_application_1/practicingMaping/task_two/hive/person.dart';
@@ -22,8 +23,9 @@ void main() async {
   await Hive.initFlutter();
   // Hive.registerAdapter(PersonAdapter());
   Hive.registerAdapter(NoteAppDbModelAdapter());
+  Hive.registerAdapter(TodoDbModelAdapter());
   await Hive.openBox<NoteAppDbModel>('noteBox');
-  await Hive.openBox<TodoDbModelAdapter>('todoBox');
+  await Hive.openBox<TodoDbModel>('todoBox');
   // NoteProvider().loadBoxFunc();
   // Hive.registerAdapter(ProductAdapter());
   // Hive.registerAdapter(HiveTodoModelAdapter());
@@ -36,6 +38,7 @@ void main() async {
       providers: [
         ChangeNotifierProvider(create: (context) => ProductViewmodel()),
         ChangeNotifierProvider(create: (context) => NoteProvider()),
+        ChangeNotifierProvider(create: (context) => TodoProvider()),
       ],
       child: const MyApp(),
     ),

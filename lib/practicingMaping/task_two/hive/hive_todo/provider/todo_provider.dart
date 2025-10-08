@@ -9,10 +9,11 @@ class TodoProvider extends ChangeNotifier {
   final List<TodoUiModel> todoList = [];
 
   void loadTodoToList(){
-    final getdb = Hive.box('todoBox');
+    final Box<TodoDbModel> getdb = Hive.box('todoBox');
     for(var dbItems in getdb.values.toList()){
       todoList.add(dbItems.toUiModel());
     }
+    print(getdb.values);
   }
 
   void addToTodo(TodoUiModel todoItem) {

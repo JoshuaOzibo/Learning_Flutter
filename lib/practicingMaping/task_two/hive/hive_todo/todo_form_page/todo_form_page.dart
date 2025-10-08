@@ -21,10 +21,17 @@ class TodoFormPage extends StatelessWidget {
           ),
         ),
 
+        SizedBox(height: 10,),
+
         MaterialButton(
+          color: Colors.brown,
+          shape: BeveledRectangleBorder(borderRadius: BorderRadiusGeometry.circular(2)),
           onPressed: () {
-            handleSubmit(todoEditingController);
+            handleSubmit(todoEditingController.text);
           },
+          child: Text('add todo', style: TextStyle(
+            color: Colors.white, 
+          ),),
         ),
       ],
     );
