@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/converter.dart';
 import 'package:flutter_application_1/currency_converter_materia_page.dart';
+import 'package:flutter_application_1/flutter_animation/part_one/animation_one.dart';
 import 'package:flutter_application_1/practicingMaping/task_two/hive/hive_page.dart';
 import 'package:flutter_application_1/practicingMaping/task_two/hive/hive_todo/provider/todo_provider.dart';
 import 'package:flutter_application_1/practicingMaping/task_two/hive/hive_todo/todo_db_model.dart';
@@ -50,7 +51,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // //HivePage() //const SimpleCart() //  HiveTodoPage() //NoteHomePage()
-    return MaterialApp(home: TodoHomePage());
+    // //HivePage() //const SimpleCart() //  HiveTodoPage() //NoteHomePage() //TodoHomePage()
+    return MaterialApp(home: AnimationOne());
   }
 }
