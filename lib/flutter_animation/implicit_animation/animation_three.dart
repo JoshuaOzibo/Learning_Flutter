@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 class AnimationThree extends StatelessWidget {
   const AnimationThree({super.key});
 
-  final double size = 300;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/pages/profile_page.dart';
 
 class ExplicitAnimationTwo extends StatefulWidget {
   const ExplicitAnimationTwo({super.key});
@@ -10,7 +11,9 @@ class ExplicitAnimationTwo extends StatefulWidget {
 class _ExplicitAnimationTwoState extends State<ExplicitAnimationTwo>
     with TickerProviderStateMixin {
   late AnimationController controller;
-  late Animation<Offset> slidingAnimation;
+  late List<Animation<Offset>> slidingAnimation;
+
+  final int itemLength = 5;
 
   @override
   void initState() {
@@ -18,10 +21,11 @@ class _ExplicitAnimationTwoState extends State<ExplicitAnimationTwo>
     controller = AnimationController(vsync: this, duration: const Duration(
       milliseconds: 2000
     ));
-    slidingAnimation = Tween<Offset>(
-      begin: Offset(-5, 1),
+
+    slidingAnimation = List.generate(itemLength, (index) => Tween<Offset>(
+      begin: Offset(-2, 1),
       end: Offset.zero,
-    ).animate(controller);
+    ).animate(CurvedAnimation(parent: controller, curve: Interval(index * (1 / itemCount), 1))));
 
   }
 
@@ -31,12 +35,12 @@ class _ExplicitAnimationTwoState extends State<ExplicitAnimationTwo>
       body: Column(
         children: [
           Expanded(
-            child: SlideTransition(
-              position: slidingAnimation,
-              child: ListView(
-                children: List.generate(
-                  5,
-                  (index) => Padding(
+            child: ListView(
+              children: List.generate(
+                itemLength,
+                (index) => SlideTransition(
+                  position: slidingAnimation[index],
+                  child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: ListTile(
                       title: Text('Hello to List Animation'),
@@ -53,7 +57,12 @@ class _ExplicitAnimationTwoState extends State<ExplicitAnimationTwo>
           // SizedBox(height: 100),
 
           MaterialButton(
-            onPressed: () =>  controller.forward(),
+            onPressed: (){
+              if(controller.isCompleted){
+                controller.reverse();
+              }
+              controller.forward();
+            },
             child: Text('start animation'),
           ),
         ],

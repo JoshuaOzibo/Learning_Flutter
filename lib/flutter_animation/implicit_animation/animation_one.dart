@@ -32,6 +32,20 @@ class _AnimationOneState extends State<AnimationOne> {
     });
   }
 
+  void handlesingleColor(int index) {
+    setState(() {
+      
+      final random = Random();
+      currentPalette[index] = Color.fromRGBO(
+        random.nextInt(256),
+        random.nextInt(256),
+        random.nextInt(256),
+        1,
+      );
+    print(index);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,18 +53,21 @@ class _AnimationOneState extends State<AnimationOne> {
         child: Column(
           children: [
             SizedBox(height: 100),
-            for (var color in currentPalette)
-              AnimatedContainer(
-                duration: const Duration(
-                  milliseconds: 500,
-                ),
-                // curve: ,
-                width: 100,
-                height: 100,
-                margin: EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  color: color,
-                  borderRadius: BorderRadius.circular(5),
+            for (var i = 0; i < currentPalette.length; i ++)
+              GestureDetector(
+                onTap: () {
+                  handlesingleColor(i);
+                },
+                child: AnimatedContainer(
+                  duration: const Duration(milliseconds: 500),
+                  // curve: ,
+                  width: 100,
+                  height: 100,
+                  margin: EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: currentPalette[i],
+                    borderRadius: BorderRadius.circular(5),
+                  ),
                 ),
               ),
 
