@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:math';
 
 class AnimationTwo extends StatefulWidget {
   const AnimationTwo({super.key});
@@ -8,60 +9,112 @@ class AnimationTwo extends StatefulWidget {
 }
 
 class _AnimationTwoState extends State<AnimationTwo> {
-  bool isAnimated = false;
+ bool _showFirst = true;
+
+  void _toggle() {
+    setState(() {
+      _showFirst = !_showFirst;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Center(
-          child: Column(
-            children: [
-              GestureDetector(
-                onTap: () {
-                  setState(() {
-                    isAnimated = !isAnimated;
-                    print(isAnimated);
-                  });
-                },
-                child: AnimatedContainer(
-                  width: isAnimated ? 150 : 100,
-                  height: 50,
-                  decoration: BoxDecoration(
-                    borderRadius: isAnimated
-                        ? BorderRadius.circular(100)
-                        : BorderRadius.circular(10),
-                    color: isAnimated == true ? Colors.blue : Colors.red,
-                  ),
-                  duration: const Duration(milliseconds: 500),
-                  child: Center(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        if (!isAnimated) Icon(Icons.add),
-                        AnimatedOpacity(
-                          opacity: isAnimated ? 1 : 0,
-                          duration: const Duration(milliseconds: 2500),
-                          child: Text(
-                            isAnimated ? 'Animated data' : '',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+      backgroundColor: Colors.grey[50],
+      body: Center(
+        child: GestureDetector(
+          onTap: _toggle,
+          child: AnimatedCrossFade(
+            duration: const Duration(milliseconds: 800),
+            firstChild: Container(
+              width: 200,
+              height: 200,
+              color: Colors.amber,
+              alignment: Alignment.center,
+              child: const Text(
+                "Tap Me!",
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
-
-
-              
-            ],
+            ),
+            secondChild: Container(
+              width: 200,
+              height: 200,
+              decoration: BoxDecoration(
+                image: const DecorationImage(
+                  image: AssetImage('images/meat.png'),
+                  fit: BoxFit.cover,
+                ),
+                borderRadius: BorderRadius.circular(20),
+              ),
+            ),
+            crossFadeState: _showFirst
+                ? CrossFadeState.showFirst
+                : CrossFadeState.showSecond,
           ),
         ),
       ),
     );
   }
 }
+
+/**
+ import 'package:flutter/material.dart';
+
+class CrossFadeDemo extends StatefulWidget {
+  const CrossFadeDemo({super.key});
+
+  @override
+  State<CrossFadeDemo> createState() => _CrossFadeDemoState();
+}
+
+class _CrossFadeDemoState extends State<CrossFadeDemo> {
+  bool _showFirst = true;
+
+  void _toggle() {
+    setState(() {
+      _showFirst = !_showFirst;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.grey[50],
+      body: Center(
+        child: GestureDetector(
+          onTap: _toggle,
+          child: AnimatedCrossFade(
+            duration: const Duration(milliseconds: 800),
+            firstChild: Container(
+              width: 200,
+              height: 200,
+              color: Colors.amber,
+              alignment: Alignment.center,
+              child: const Text(
+                "Tap Me!",
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              ),
+            ),
+            secondChild: Container(
+              width: 200,
+              height: 200,
+              decoration: BoxDecoration(
+                image: const DecorationImage(
+                  image: NetworkImage("https://picsum.photos/200"),
+                  fit: BoxFit.cover,
+                ),
+                borderRadius: BorderRadius.circular(20),
+              ),
+            ),
+            crossFadeState: _showFirst
+                ? CrossFadeState.showFirst
+                : CrossFadeState.showSecond,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+
+ */
