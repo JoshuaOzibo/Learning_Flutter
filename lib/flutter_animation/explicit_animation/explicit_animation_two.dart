@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/pages/profile_page.dart';
 
 class ExplicitAnimationTwo extends StatefulWidget {
   const ExplicitAnimationTwo({super.key});
@@ -9,63 +8,57 @@ class ExplicitAnimationTwo extends StatefulWidget {
 }
 
 class _ExplicitAnimationTwoState extends State<ExplicitAnimationTwo>
-    with TickerProviderStateMixin {
-  late AnimationController controller;
-  late List<Animation<Offset>> slidingAnimation;
+    with SingleTickerProviderStateMixin {
+  late AnimationController animationController;
+  late List<Animation<Offset>> _animationPosition;
 
-  final int itemLength = 5;
+  final int listToGenerate = 5;
 
   @override
   void initState() {
     super.initState();
-    controller = AnimationController(vsync: this, duration: const Duration(
-      milliseconds: 2000
-    ));
+    animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 2000),
+    );
 
-    slidingAnimation = List.generate(itemLength, (index) => Tween<Offset>(
-      begin: Offset(-2, 1),
-      end: Offset.zero,
-    ).animate(CurvedAnimation(parent: controller, curve: Interval(index * (1 / itemCount), 1))));
-
+    _animationPosition = List.generate(
+      listToGenerate,
+      (int index) => Tween(begin: Offset(-1, 0), end: Offset.zero).animate(
+        CurvedAnimation(
+          parent: animationController,
+          curve: Interval(index * (1 / listToGenerate), 1),
+        ),
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          Expanded(
-            child: ListView(
-              children: List.generate(
-                itemLength,
-                (index) => SlideTransition(
-                  position: slidingAnimation[index],
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: ListTile(
-                      title: Text('Hello to List Animation'),
-                      shape: BeveledRectangleBorder(
-                        side: BorderSide(width: 1, color: Colors.brown),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
+      body: ListView.builder(
+        itemCount: listToGenerate,
+        itemBuilder: (context, index) {
+          return SlideTransition(
+            position: _animationPosition[index],
+            child: Container(
+              padding: EdgeInsets.all(10),
+              margin: EdgeInsets.only(bottom: 5, right: 5, left: 5),
+              child: ListTile(title: Text('Hello my Name is Joshua')),
             ),
-          ),
+          );
+        },
+      ),
 
-          // SizedBox(height: 100),
-
-          MaterialButton(
-            onPressed: (){
-              if(controller.isCompleted){
-                controller.reverse();
-              }
-              controller.forward();
-            },
-            child: Text('start animation'),
-          ),
-        ],
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          if (animationController.isCompleted) {
+            animationController.reverse();
+          } else {
+            animationController.forward();
+          }
+        },
+        child: Text('Click'),
       ),
     );
   }
