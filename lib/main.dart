@@ -4,6 +4,7 @@ import 'package:flutter_application_1/currency_converter_materia_page.dart';
 import 'package:flutter_application_1/flutter_animation/explicit_animation/explicit_animation_one.dart';
 import 'package:flutter_application_1/flutter_animation/explicit_animation/explicit_animation_three.dart';
 import 'package:flutter_application_1/flutter_animation/explicit_animation/explicit_animation_two.dart';
+import 'package:flutter_application_1/flutter_animation/implicit_animation/animated_crossfade.dart';
 import 'package:flutter_application_1/flutter_animation/implicit_animation/animation_one.dart';
 import 'package:flutter_application_1/flutter_animation/implicit_animation/animation_three.dart';
 import 'package:flutter_application_1/flutter_animation/implicit_animation/animation_two.dart';
@@ -58,6 +59,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // //HivePage() //const SimpleCart() //  HiveTodoPage() //NoteHomePage() //TodoHomePage()
-    return MaterialApp(home: RotationAnimation());
+    return MaterialApp(home: AnimatedCrossfade());
   }
 }
