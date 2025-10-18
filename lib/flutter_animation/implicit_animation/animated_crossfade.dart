@@ -8,10 +8,9 @@ class AnimatedCrossfade extends StatefulWidget {
 }
 
 class _AnimatedCrossfadeState extends State<AnimatedCrossfade> {
-   List<String> buttonList = ['Buy Airtime', 'Buy Cable'];
+  List<String> buttonList = ['Buy Airtime', 'Buy Cable'];
 
-   String isSelected = 'Buy Airtime';
-
+  String isSelected = 'Buy Airtime';
 
   @override
   Widget build(BuildContext context) {
@@ -26,28 +25,30 @@ class _AnimatedCrossfadeState extends State<AnimatedCrossfade> {
               child: Row(
                 spacing: 10,
                 children: [
-
-                  ...buttonList.map((item) => Expanded(
-                    child: SizedBox(
-                      height: 50,
-                      child: GestureDetector(
-                        onTap: (){
-                          setState(() {
-                           isSelected = item ;
-                          });
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: isSelected == item ? Colors.brown : Colors.cyan,
-                            borderRadius: BorderRadius.circular(100),
+                  ...buttonList.map(
+                    (item) => Expanded(
+                      child: SizedBox(
+                        height: 50,
+                        child: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              isSelected = item;
+                            });
+                          },
+                          child: AnimatedContainer(
+                            duration: const Duration(milliseconds: 500),
+                            decoration: BoxDecoration(
+                              color: isSelected == item
+                                  ? Colors.brown
+                                  : Colors.cyan,
+                              borderRadius: BorderRadius.circular(100),
+                            ),
+                            child: Text(item),
                           ),
-                          child: Text(item),
                         ),
                       ),
                     ),
-                  )
-                  
-                  ,),
+                  ),
                 ],
               ),
             ),
@@ -73,7 +74,9 @@ class _AnimatedCrossfadeState extends State<AnimatedCrossfade> {
                   child: Text('Cable', style: TextStyle(fontSize: 30)),
                 ),
               ),
-              crossFadeState: isSelected == 'Buy Airtime' ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+              crossFadeState: isSelected == 'Buy Airtime'
+                  ? CrossFadeState.showFirst
+                  : CrossFadeState.showSecond,
               duration: const Duration(milliseconds: 500),
             ),
           ],
