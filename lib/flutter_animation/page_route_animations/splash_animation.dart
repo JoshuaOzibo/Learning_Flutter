@@ -26,7 +26,10 @@ class _SplashAnimationState extends State<SplashAnimation>
       duration: const Duration(milliseconds: 2000),
     );
 
-    scaleController = AnimationController(vsync: this, duration: const Duration(milliseconds: 2000));
+    scaleController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 2000),
+    );
 
     // animation
     progressAnimation = Tween<double>(
@@ -45,26 +48,35 @@ class _SplashAnimationState extends State<SplashAnimation>
       }
     });
 
-    scaleController.addListener((){
-      if(scaleController.isCompleted){
+    scaleController.addListener(() {
+      if (scaleController.isCompleted) {
         Navigator.of(context).push(
-          PageRouteBuilder(pageBuilder: (context, animatiom, secondaryAnimation) {
-            return const Destination();
-          },
-          transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            final anim = Tween<double>(begin: 0, end: 1).animate(CurvedAnimation(parent: animation, curve: Curves.easeIn));
-            return FadeTransition(
-              opacity: anim,
-              child: child,
-              );
-          },
-          ));
-      Timer(const Duration(milliseconds: 500), (){
-        scaleController.reset();
-        controller.reset();
-      });
+          PageRouteBuilder(
+            pageBuilder: (context, animatiom, secondaryAnimation) {
+              return const Destination();
+            },
+            transitionsBuilder:
+                (context, animation, secondaryAnimation, child) {
+                  final anim = Tween<double>(begin: 0, end: 1).animate(
+                    CurvedAnimation(parent: animation, curve: Curves.easeIn),
+                  );
+                  return FadeTransition(opacity: anim, child: child);
+                },
+          ),
+        );
+        Timer(const Duration(milliseconds: 500), () {
+          scaleController.reset();
+          controller.reset();
+        });
       }
     });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    controller.dispose();
+    scaleController.dispose();
   }
 
   @override
@@ -117,19 +129,69 @@ class _SplashAnimationState extends State<SplashAnimation>
   }
 }
 
-class Destination extends StatelessWidget {
+class Destination extends StatefulWidget {
   const Destination({super.key});
+
+  @override
+  State<Destination> createState() => _DestinationState();
+}
+
+class _DestinationState extends State<Destination>
+    with SingleTickerProviderStateMixin {
+  late AnimationController controller;
+  late List<Animation<Offset>> listSliding;
+
+  final listOfItems = 10;
+
+  @override
+  void initState() {
+    super.initState();
+
+    controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 3000),
+    );
+
+    listSliding = List.generate(
+      listOfItems,
+      (index) => Tween<Offset>(begin: Offset(-1, 0), end: Offset(0, 0)).animate(
+        CurvedAnimation(
+          parent: controller,
+          curve: Interval(index * (1 / listOfItems), 1),
+        ),
+      ),
+    );
+
+    controller.forward();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    controller.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.amber,
-      appBar: AppBar(
-        title: Text('Hello Destination'),
-      ),
-
+      appBar: AppBar(title: Text('Hello Destination')),
       body: Center(
-        child: Text('Destination'),
+        child: ListView.builder(
+          itemCount: listOfItems,
+          itemBuilder: (context, index) {
+            return SlideTransition(
+              position: listSliding[index],
+              child: Container(
+                margin: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                decoration: BoxDecoration(
+                  border: BoxBorder.all(width: 2, color: Colors.black38),
+                ),
+                child: ListTile(title: Text('Hello from Joshua')),
+              ),
+            );
+          },
+        ),
       ),
     );
   }
