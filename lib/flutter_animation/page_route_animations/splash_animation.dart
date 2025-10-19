@@ -28,7 +28,7 @@ class _SplashAnimationState extends State<SplashAnimation>
 
     scaleController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 2000),
+      duration: const Duration(milliseconds: 1000),
     );
 
     // animation
@@ -129,6 +129,7 @@ class _DestinationState extends State<Destination>
     with SingleTickerProviderStateMixin {
   late AnimationController controller;
   late List<Animation<Offset>> listSliding;
+  late Animation<Offset> rightSliding;
 
   final listOfItems = 10;
 
@@ -152,6 +153,26 @@ class _DestinationState extends State<Destination>
     );
 
     controller.forward();
+  }
+
+  void handleNextPage() {
+    Navigator.of(context).push(
+      PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) {
+          return NewPage();
+        },
+
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          return SlideTransition(
+            position: Tween<Offset>(
+              begin: Offset(1, 0),
+              end: Offset.zero,
+            ).animate(CurvedAnimation(parent: animation, curve: Interval(0.5, 1))),
+            child: child,
+          );
+        },
+      ),
+    );
   }
 
   @override
@@ -182,6 +203,24 @@ class _DestinationState extends State<Destination>
           },
         ),
       ),
+
+      floatingActionButton: FloatingActionButton(
+        onPressed: handleNextPage,
+        child: Text('Next Page'),
+      ),
+    );
+  }
+}
+
+class NewPage extends StatelessWidget {
+  const NewPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('Joshua Title')),
+      backgroundColor: Colors.cyan,
+      body: Center(child: Text('Hello Joshua')),
     );
   }
 }
