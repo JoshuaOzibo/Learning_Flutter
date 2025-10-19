@@ -50,20 +50,9 @@ class _SplashAnimationState extends State<SplashAnimation>
 
     scaleController.addListener(() {
       if (scaleController.isCompleted) {
-        Navigator.of(context).push(
-          PageRouteBuilder(
-            pageBuilder: (context, animatiom, secondaryAnimation) {
-              return const Destination();
-            },
-            transitionsBuilder:
-                (context, animation, secondaryAnimation, child) {
-                  final anim = Tween<double>(begin: 0, end: 1).animate(
-                    CurvedAnimation(parent: animation, curve: Curves.easeIn),
-                  );
-                  return FadeTransition(opacity: anim, child: child);
-                },
-          ),
-        );
+        Navigator.of(
+          context,
+        ).push(MyCustomRouteTransiction(route: const Destination()));
         Timer(const Duration(milliseconds: 500), () {
           scaleController.reset();
           controller.reset();
@@ -195,4 +184,21 @@ class _DestinationState extends State<Destination>
       ),
     );
   }
+}
+
+class MyCustomRouteTransiction extends PageRouteBuilder {
+  final Widget route;
+  MyCustomRouteTransiction({required this.route})
+    : super(
+        pageBuilder: (context, animatiom, secondaryAnimation) {
+          return const Destination();
+        },
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          final anim = Tween<double>(
+            begin: 0,
+            end: 1,
+          ).animate(CurvedAnimation(parent: animation, curve: Curves.easeIn));
+          return FadeTransition(opacity: anim, child: child);
+        },
+      );
 }
