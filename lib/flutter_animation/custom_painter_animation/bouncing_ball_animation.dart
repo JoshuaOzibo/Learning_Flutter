@@ -1,7 +1,35 @@
 import 'package:flutter/material.dart';
 
-class BouncingBallAnimation extends StatelessWidget {
+class BouncingBallAnimation extends StatefulWidget {
   const BouncingBallAnimation({super.key});
+
+  @override
+  State<BouncingBallAnimation> createState() => _BouncingBallAnimationState();
+}
+
+class _BouncingBallAnimationState extends State<BouncingBallAnimation>
+    with SingleTickerProviderStateMixin {
+  late AnimationController controller;
+  late Animation<double> animation;
+
+  @override
+  void initState() {
+    super.initState();
+
+    controller= AnimationController(vsync: this, duration: const Duration(milliseconds: 2000));
+
+    animation = Tween<double>(begin: 0, end: 1).animate(controller);
+
+    animation.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        controller.reverse();
+      } else if (status == AnimationStatus.dismissed) {
+        controller.forward();
+      }
+    });
+
+    controller.forward();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -9,28 +37,33 @@ class BouncingBallAnimation extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
-            CustomPaint(
-              size: Size(200, 200),
-              painter: BouncingBallPainter(),
-            )
-          ])),
+            AnimatedBuilder(
+              animation: animation,
+              builder: (context, child) {
+                return CustomPaint(size: Size(200, 200), painter: CustomBoncingBall(animationValue: animation.value));
+              }
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
 
-class BouncingBallPainter extends CustomPainter{
-
+class CustomBoncingBall extends CustomPainter {
+  final double animationValue;
+  CustomBoncingBall({required this.animationValue});
   @override
   void paint(Canvas canvas, Size size) {
     canvas.drawCircle(
-    Offset(size.width / 2, 0), 
-    20, 
-    Paint()..color = Colors.blue);
+      Offset(size.width / 2, size.height - (size.height * animationValue)),
+      20,
+      Paint()..color = Colors.blue,
+    );
   }
 
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    return false;
+    return true; // this is set to true because the height must continiously change ... if the height does not change then we use false;
   }
-  
 }
