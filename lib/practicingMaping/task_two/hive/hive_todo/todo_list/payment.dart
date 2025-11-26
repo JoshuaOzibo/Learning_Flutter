@@ -63,8 +63,11 @@ class _PaymentState extends State<Payment> {
   Widget build(BuildContext context) {
     return  Column(
   children: [
+    SizedBox(
+      height: 200,
+    ),
    SizedBox(
-    height: 60,
+    height: 100,
      child: Platform.isIOS ? applePayButton : googlePay,
    )
   ],
