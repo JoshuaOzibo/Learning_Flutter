@@ -9,11 +9,12 @@ class Onboarding extends StatefulWidget {
 
 class _OnboardingState extends State<Onboarding> {
   final PageController _pageController = PageController();
+  int currentPage = 0;
   List<int> pagination = [1, 2, 3, 4];
 
   void nextPage() {
     _pageController.nextPage(
-      duration: const Duration(milliseconds: 600),
+      duration: const Duration(milliseconds: 400),
       curve: Curves.easeInExpo,
     );
   }
@@ -24,18 +25,44 @@ class _OnboardingState extends State<Onboarding> {
       child: Column(
         children: [
           Text(
-            _pageController.page.toString(),
+            _pageController.initialPage.toString(),
             style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
           ),
           SizedBox(height: 30),
-          PageView(
-            controller: _pageController,
-            children: [
-              OnboardingOne(nextScreen: nextPage),
-              OnboardingTwo(nextScreen: nextPage),
-              OnboardingThree(nextScreen: nextPage),
-              OnboardingFour(nextScreen: nextPage),
-            ],
+          SizedBox(
+            height: 500,
+            child: PageView(
+              onPageChanged: (value) => setState(() {
+                currentPage = value;
+              }),
+              controller: _pageController,
+              children: [
+                OnboardingOne(nextScreen: nextPage),
+                OnboardingTwo(nextScreen: nextPage),
+                OnboardingThree(nextScreen: nextPage),
+                OnboardingFour(nextScreen: nextPage),
+              ],
+            ),
+          ),
+
+          SizedBox(height: 20),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: pagination
+                .map(
+                  (item) => Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 5),
+                    height: 10,
+                    width: 10,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(100),
+                      color: currentPage + 1 == item
+                          ? Colors.amber
+                          : Colors.blueGrey.shade300,
+                    ),
+                  ),
+                )
+                .toList(),
           ),
         ],
       ),
