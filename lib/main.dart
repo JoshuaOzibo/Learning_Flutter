@@ -12,6 +12,7 @@ import 'package:flutter_application_1/flutter_animation/implicit_animation/anima
 import 'package:flutter_application_1/flutter_animation/implicit_animation/rotation_animation.dart';
 import 'package:flutter_application_1/flutter_animation/page_route_animations/splash_animation.dart';
 import 'package:flutter_application_1/onboarding/onBoarding.dart';
+import 'package:flutter_application_1/onboarding/on_boarding_task.dart';
 import 'package:flutter_application_1/practicingMaping/task_two/hive/hive_page.dart';
 import 'package:flutter_application_1/practicingMaping/task_two/hive/hive_todo/provider/todo_provider.dart';
 import 'package:flutter_application_1/practicingMaping/task_two/hive/hive_todo/todo_db_model.dart';
@@ -63,6 +64,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // //HivePage() //const SimpleCart() //  HiveTodoPage() //NoteHomePage() //TodoHomePage()
-    return MaterialApp(home: Onboarding());
+    return MaterialApp(home: OnBoardingTask());
   }
 }
