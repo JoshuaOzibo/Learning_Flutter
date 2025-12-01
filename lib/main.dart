@@ -64,6 +64,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // //HivePage() //const SimpleCart() //  HiveTodoPage() //NoteHomePage() //TodoHomePage()
-    return MaterialApp(home: OnBoardingTask());
+    return MaterialApp(home: const NoteHomePage());
   }
 }

@@ -18,7 +18,7 @@ class _NoteHomePageState extends State<NoteHomePage> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-    context.read<NoteProvider>().loadNotes();
+      context.read<NoteProvider>().loadNotes();
     });
   }
 
@@ -26,7 +26,7 @@ class _NoteHomePageState extends State<NoteHomePage> {
   final TextEditingController contentEditingController =
       TextEditingController();
 
-      var uuid = const Uuid();
+  var uuid = const Uuid();
 
   final note = DummyNote().uiNote;
   @override
@@ -37,33 +37,32 @@ class _NoteHomePageState extends State<NoteHomePage> {
         margin: EdgeInsets.symmetric(horizontal: 20),
         child: Column(
           children: [
-            SizedBox(
-              height: 400,
+            Flexible(
+              flex: 1,
               child: NoteFormField(
                 titleEditingController: titleEditingController,
                 contentEditingController: contentEditingController,
                 handleSubmitForm: () => {
                   vn.addNote(
-                  NoteAppUiModel(
-                    id: uuid.v4(),
-                    title: titleEditingController.text,
-                    content: contentEditingController.text,
-                    createdAt: '05-04-09',
+                    NoteAppUiModel(
+                      id: uuid.v4(),
+                      title: titleEditingController.text,
+                      content: contentEditingController.text,
+                      createdAt: '05-04-09',
+                    ),
                   ),
-                ),
-                titleEditingController.clear(),
-                contentEditingController.clear(),
-                }
+                  titleEditingController.clear(),
+                  contentEditingController.clear(),
+                },
               ),
             ),
 
-            SizedBox(height: 50,),
+            SizedBox(height: 16),
 
-            if(vn.notesList.isEmpty)
-            Text('Note List is empty'),
+            if (vn.notesList.isEmpty) Text('Note List is empty'),
 
-            SizedBox(
-              height: 400,
+            Flexible(
+              flex: 1,
               child: ListView.builder(
                 itemCount: vn.notesList.length,
                 itemBuilder: (context, index) {
@@ -71,7 +70,7 @@ class _NoteHomePageState extends State<NoteHomePage> {
                   return Container(
                     margin: EdgeInsets.only(top: 5),
                     child: ListTile(
-                      onLongPress: ()=> vn.deleteNote(item),
+                      onLongPress: () => vn.deleteNote(item),
                       tileColor: Colors.brown,
                       titleTextStyle: TextStyle(color: Colors.white),
                       title: Text(item.title),

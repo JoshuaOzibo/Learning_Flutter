@@ -14,22 +14,22 @@ class NoteFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
+    return SingleChildScrollView(
+      child: Column(
         children: [
-          SizedBox(height: 50),
+          SizedBox(height: 12),
 
           TextField(
             controller: titleEditingController,
             decoration: InputDecoration(hint: Text('enter title')),
           ),
-          SizedBox(height: 50),
+          SizedBox(height: 12),
           TextField(
             controller: contentEditingController,
             decoration: InputDecoration(hint: Text('enter content')),
           ),
 
-          SizedBox(height: 50),
+          SizedBox(height: 12),
 
           MaterialButton(
             height: 50,
