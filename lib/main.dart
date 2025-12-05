@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/converter.dart';
+import 'package:flutter_application_1/cubit_auth/cubit_auth_page.dart';
+import 'package:flutter_application_1/cubit_auth/cubit_auth_vm.dart';
 import 'package:flutter_application_1/currency_converter_materia_page.dart';
 import 'package:flutter_application_1/fllutter_cubit/cubit_page.dart';
 import 'package:flutter_application_1/fllutter_cubit/cubit_vm.dart';
@@ -64,7 +66,8 @@ void main() async {
     MultiBlocProvider(
       providers: [
          BlocProvider(create: (_) => BlocVm()),
-         BlocProvider(create: (_) => CubitVm())
+         BlocProvider(create: (_) => CubitVm()),
+         BlocProvider(create: (_) => CubitAuthVm())
       ], 
       child: const MyApp(),)
   );
@@ -76,6 +79,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // //HivePage() //const SimpleCart() //  HiveTodoPage() //NoteHomePage() //TodoHomePage()
-    return MaterialApp(home: const CubitPage());
+    return MaterialApp(home: const CubitAuthPage());
   }
 }
