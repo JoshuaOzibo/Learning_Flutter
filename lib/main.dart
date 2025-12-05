@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/converter.dart';
 import 'package:flutter_application_1/currency_converter_materia_page.dart';
+import 'package:flutter_application_1/fllutter_cubit/cubit_page.dart';
+import 'package:flutter_application_1/fllutter_cubit/cubit_vm.dart';
+import 'package:flutter_application_1/flutter_bloc/bloc_vm/bloc_vm.dart';
+import 'package:flutter_application_1/flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_application_1/flutter_animation/custom_painter_animation/bouncing_ball_animation.dart';
 import 'package:flutter_application_1/flutter_animation/explicit_animation/explicit_animation_one.dart';
 import 'package:flutter_application_1/flutter_animation/explicit_animation/explicit_animation_three.dart';
@@ -28,6 +32,7 @@ import 'package:flutter_application_1/simple_cart/viewmodel/hive/product.dart';
 import 'package:flutter_application_1/simple_cart/viewmodel/product_viewmodel.dart';
 import 'package:flutter_application_1/simple_todo_app/todo_form.dart';
 import 'package:flutter_application_1/simple_todo_app/todo_home.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 
@@ -47,14 +52,21 @@ void main() async {
 
   
   runApp(
-    MultiProvider(
+    // MultiProvider(
+    //   providers: [
+    //     ChangeNotifierProvider(create: (context) => ProductViewmodel()),
+    //     ChangeNotifierProvider(create: (context) => NoteProvider()),
+    //     ChangeNotifierProvider(create: (context) => TodoProvider()),
+    //   ],
+    //   child: const MyApp(),
+    // ),
+
+    MultiBlocProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => ProductViewmodel()),
-        ChangeNotifierProvider(create: (context) => NoteProvider()),
-        ChangeNotifierProvider(create: (context) => TodoProvider()),
-      ],
-      child: const MyApp(),
-    ),
+         BlocProvider(create: (_) => BlocVm()),
+         BlocProvider(create: (_) => CubitVm())
+      ], 
+      child: const MyApp(),)
   );
 }
 
@@ -64,6 +76,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // //HivePage() //const SimpleCart() //  HiveTodoPage() //NoteHomePage() //TodoHomePage()
-    return MaterialApp(home: const NoteHomePage());
+    return MaterialApp(home: const CubitPage());
   }
 }
