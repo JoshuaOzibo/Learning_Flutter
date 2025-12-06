@@ -45,6 +45,8 @@ class _CubitAuthPageState extends State<CubitAuthPage> {
                     email: emailController.text,
                     password: passwordController.text,
                   );
+                  emailController.clear();
+                  passwordController.clear();
                   },
                   widget: state.isLoading == true
                       ? CircularProgressIndicator()

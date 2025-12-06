@@ -15,31 +15,36 @@ class CubitAuthVm extends Cubit<CubitAuthState> {
     required BuildContext context,
   }) {
     try {
-      emit(state.copyWith(isLoading: true, errorMessage: null));
+        emit(state.copyWith(isLoading: true, errorMessage: null));
+      Future.delayed(const Duration(seconds: 3), () {
+        print("email: $email, password: $password");
       if (email == realEmail && password == realPassword) {
-        emit(state.copyWith(isAuthenticated: true, isLoading: false));
+        emit(state.copyWith(isLoading: false, errorMessage: null));
         Navigator.of(
           context,
         ).push(MaterialPageRoute(builder: (_) => CubitHomePage()));
       } else {
-        String errorMessage = '';
+        String errorMessage = 'Invalid email or password';
         emit(
           state.copyWith(
             isLoading: false,
-            errorMessage: errorMessage = 'Invalid email or password',
+            errorMessage: errorMessage = errorMessage,
           ),
         );
-        SnackBar(content: Text(errorMessage));
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(errorMessage)),
+        );
       }
+},);
     } catch (e) {
       print(e);
       emit(state.copyWith(isLoading: false, errorMessage: e.toString()));
     }
   }
 
-  @override
-  void onChange(Change<CubitAuthState> change) {
-    print('current state: ${change.currentState}, nextState: ${change.nextState}  ');
-    super.onChange(change);
-  }
+  // @override
+  // void onChange(Change<CubitAuthState> change) {
+  //   print('current state: ${change.currentState}, nextState: ${change.nextState}  ');
+  //   super.onChange(change);
+  // }
 }
