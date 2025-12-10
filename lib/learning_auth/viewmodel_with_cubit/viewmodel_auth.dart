@@ -3,4 +3,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ViewmodelAuth extends Cubit<ViewmodelState> {
   ViewmodelAuth() : super(ViewmodelState(isAuthenticated: false));
+
+  onChangeEmail(String changedEmail) {
+    print(changedEmail);
+  }
+
+  validateEmail(String email) async {
+    emit(state.copyWith(isLoading: true));
+    Future.delayed(const Duration(seconds: 2), () => print('Logged in'));
+    print(email);
+  }
 }

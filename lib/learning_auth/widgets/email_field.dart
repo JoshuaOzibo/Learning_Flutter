@@ -5,10 +5,12 @@ class EmailField extends StatelessWidget {
     super.key,
     required this.handleSubscribeButton,
     required this.emailController,
+    required this.onChangedVal
   });
 
   final VoidCallback handleSubscribeButton;
   final TextEditingController emailController;
+  final Function onChangedVal;
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +21,7 @@ class EmailField extends StatelessWidget {
           autocorrect: true,
           keyboardType: TextInputType.emailAddress,
           controller: emailController,
+          onChanged: (value) => onChangedVal(value),
           decoration: InputDecoration(
             border: OutlineInputBorder(
               borderSide: BorderSide(width: 2, color: Colors.blueGrey, style: BorderStyle.solid),
