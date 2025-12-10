@@ -18,6 +18,7 @@ import 'package:flutter_application_1/flutter_animation/implicit_animation/anima
 import 'package:flutter_application_1/flutter_animation/implicit_animation/rotation_animation.dart';
 import 'package:flutter_application_1/flutter_animation/page_route_animations/splash_animation.dart';
 import 'package:flutter_application_1/learning_auth/learning_auth_screen.dart';
+import 'package:flutter_application_1/learning_auth/viewmodel_with_cubit/viewmodel_auth.dart';
 import 'package:flutter_application_1/onboarding/onBoarding.dart';
 import 'package:flutter_application_1/onboarding/on_boarding_task.dart';
 import 'package:flutter_application_1/practicingMaping/task_two/hive/hive_page.dart';
@@ -53,7 +54,6 @@ void main() async {
   // await Hive.openBox<Product>('cartProduct');
   // await Hive.openBox<HiveTodoModel>('todoStorage');
 
-  
   runApp(
     // MultiProvider(
     //   providers: [
@@ -63,14 +63,15 @@ void main() async {
     //   ],
     //   child: const MyApp(),
     // ),
-
     MultiBlocProvider(
       providers: [
-         BlocProvider(create: (_) => BlocVm()),
-         BlocProvider(create: (_) => CubitVm()),
-         BlocProvider(create: (_) => CubitAuthVm())
-      ], 
-      child: const MyApp(),)
+        BlocProvider(create: (_) => BlocVm()),
+        BlocProvider(create: (_) => CubitVm()),
+        BlocProvider(create: (_) => CubitAuthVm()),
+        BlocProvider(create: (_) => ViewmodelAuth()),
+      ],
+      child: const MyApp(),
+    ),
   );
 }
 
