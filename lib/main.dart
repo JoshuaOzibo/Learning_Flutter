@@ -19,6 +19,7 @@ import 'package:flutter_application_1/flutter_animation/implicit_animation/rotat
 import 'package:flutter_application_1/flutter_animation/page_route_animations/splash_animation.dart';
 import 'package:flutter_application_1/learning_auth/learning_auth_screen.dart';
 import 'package:flutter_application_1/learning_auth/viewmodel_with_cubit/viewmodel_auth.dart';
+import 'package:flutter_application_1/learning_auth/widgets/validate_code.dart';
 import 'package:flutter_application_1/onboarding/onBoarding.dart';
 import 'package:flutter_application_1/onboarding/on_boarding_task.dart';
 import 'package:flutter_application_1/practicingMaping/task_two/hive/hive_page.dart';
@@ -79,8 +80,8 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) { //LearningAuthScreen()
     // //HivePage() //const SimpleCart() //  HiveTodoPage() //NoteHomePage() //TodoHomePage()
-    return MaterialApp(home: const LearningAuthScreen());
+    return MaterialApp(home: const ValidateCode());
   }
 }
