@@ -13,4 +13,19 @@ class ViewmodelAuth extends Cubit<ViewmodelState> {
     Future.delayed(const Duration(seconds: 2), () => print('Logged in'));
     print(email);
   }
+
+  void onChangeValidationCode(String validCode){
+    // if(state.changedValidationCode!.length < 6){
+    //   emit(state.copyWith(errorMessage: 'Code length must be complete'));
+    // }
+
+    emit(state.copyWith(changedValidationCode: validCode));
+
+  }
+
+   void validateCode() {
+    print(state.changedValidationCode);
+
+    // emit(state.copyWith(changedValidationCode: null));
+   }
 }

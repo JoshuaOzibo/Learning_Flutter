@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:otp_pin_field/otp_pin_field.dart';
+import '../viewmodel_with_cubit/viewmodel_auth.dart';
 
 class ValidateCode extends StatelessWidget {
   const ValidateCode({super.key});
@@ -26,15 +28,9 @@ class ValidateCode extends StatelessWidget {
 
                 ///in case you want to change the action of keyboard
                 /// to clear the Otp pin Controller
-                onSubmit: (text) {
-                  print('Entered pin is $text');
-
-                  /// return the entered pin
-                },
+                onSubmit: (text) {},
                 onChange: (text) {
-                  print('Enter on change pin is $text');
-
-                  /// return the entered pin
+                  context.read<ViewmodelAuth>().onChangeValidationCode(text);
                 },
                 onCodeChanged: (code) {
                   print('onCodeChanged  is $code');
@@ -112,7 +108,9 @@ class ValidateCode extends StatelessWidget {
                 minWidth: double.infinity,
                 color: Colors.brown,
                 elevation: 0,
-                onPressed: () {},
+                onPressed: () {
+                 context.read<ViewmodelAuth>().validateCode();
+                },
                 child: Text('Validate Code'),
               ),
             ],
