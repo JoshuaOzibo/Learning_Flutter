@@ -107,18 +107,26 @@ class ValidateCode extends StatelessWidget {
                         OtpPinFieldDecoration.defaultPinBoxDecoration,
                   ),
 
-                  MaterialButton(
-                    height: 40,
-                    minWidth: double.infinity,
-                    color: Colors.brown,
-                    elevation: 0,
-                    onPressed: () {
-                      vm.validateCode();
-                    },
-                    child: Center(
-                      child: state.isLoading!
-                          ? CircularProgressIndicator()
-                          : Text('Validate Code'),
+                  BlocSelector<ViewmodelAuth, ViewmodelState, bool>(
+                    selector: (state) => state.activateButton,
+                    builder: (context, activateButton) => MaterialButton(
+                      height: 50,
+                      minWidth: double.infinity,
+                      color: activateButton
+                          ? Colors.brown
+                          : Colors.grey,
+                      elevation: 0,
+                      onPressed: () {
+                        vm.validateCode();
+                      },
+                      child: Center(
+                        child:state.isLoading ?? false
+                            ? CircularProgressIndicator(
+                                color: Colors.white,
+                                strokeWidth: 2,
+                              )
+                            : Text('Validate Code'),
+                      ),
                     ),
                   ),
                 ],
