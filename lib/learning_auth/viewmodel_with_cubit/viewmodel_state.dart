@@ -5,6 +5,7 @@ class ViewmodelState {
   final bool isAuthenticated;
   final String? validationCode;
   final String? changedValidationCode;
+  final bool? activateButton;
 
   ViewmodelState({
     this.emailController,
@@ -13,6 +14,7 @@ class ViewmodelState {
     required this.isAuthenticated,
     this.validationCode,
     this.changedValidationCode,
+    this.activateButton,
   });
 
   ViewmodelState copyWith({
@@ -22,6 +24,7 @@ class ViewmodelState {
     bool? isAuthenticated,
     String? validationCode,
     String? changedValidationCode,
+    bool? activateButton,
   }) {
     return ViewmodelState(
       emailController: emailController ?? this.emailController,
@@ -31,6 +34,7 @@ class ViewmodelState {
       validationCode: validationCode ?? this.validationCode,
       changedValidationCode:
           changedValidationCode ?? this.changedValidationCode,
+      activateButton: activateButton ?? this.activateButton,
     );
   }
 }
