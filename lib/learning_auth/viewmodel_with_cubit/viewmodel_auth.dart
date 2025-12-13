@@ -1,5 +1,6 @@
 import 'package:auth0_flutter/auth0_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/learning_auth/pages/home_auth_cubit.dart';
 import 'package:flutter_application_1/learning_auth/viewmodel_with_cubit/viewmodel_state.dart';
 import 'package:flutter_application_1/learning_auth/widgets/validate_code.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,7 +20,7 @@ class ViewmodelAuth extends Cubit<ViewmodelState> {
   void loginWithEmail(String email, BuildContext context) async {
     if (!state.activateButton) return;
 
-    emit(state.copyWith(isLoading: true, errorMessage: null));
+    emit(state.copyWith(isLoading: true, errorMessage: null, email: email));
 
     try {
       print('processing api');
@@ -37,6 +38,7 @@ class ViewmodelAuth extends Cubit<ViewmodelState> {
         context,
         MaterialPageRoute(builder: (_) => const ValidateCode()),
       );
+      emit(state.copyWith(isLoading: false));
     } catch (e) {
       print(e);
       emit(state.copyWith(errorMessage: e.toString(), isLoading: false));
@@ -54,7 +56,7 @@ class ViewmodelAuth extends Cubit<ViewmodelState> {
     );
   }
 
-  Future<void> validateCode() async {
+  Future<void> validateCode(BuildContext context) async {
     try {
       emit(state.copyWith(isLoading: true));
       print(state.email);
@@ -63,6 +65,10 @@ class ViewmodelAuth extends Cubit<ViewmodelState> {
         verificationCode: state.changedValidationCode!,
       );
       print('success');
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (_) => const HomeAuthCubit()),
+      );
       emit(
         state.copyWith(
           isLoading: false,
