@@ -49,7 +49,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: ".env");
   await Hive.initFlutter();
-  auth0 = Auth0(dotenv.env['DOMAIN']!, dotenv.env['AUTH0_SCHEME']!);
+  auth0 = Auth0(dotenv.env['DOMAIN']!, dotenv.env['CLIENT_ID']!);
   // Hive.registerAdapter(PersonAdapter());
   Hive.registerAdapter(NoteAppDbModelAdapter());
   Hive.registerAdapter(TodoDbModelAdapter());

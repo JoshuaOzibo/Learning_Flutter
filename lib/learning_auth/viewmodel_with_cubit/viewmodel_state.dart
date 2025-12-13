@@ -1,7 +1,7 @@
 class ViewmodelState {
   final String? emailController;
   final String? email;
-  final bool? isLoading;
+  final bool isLoading;
   final String? errorMessage;
   final bool isAuthenticated;
   final String? validationCode;
@@ -11,7 +11,7 @@ class ViewmodelState {
   ViewmodelState({
     this.emailController,
     this.email,
-    this.isLoading,
+    this.isLoading = false,
     this.errorMessage,
     required this.isAuthenticated,
     this.validationCode,
@@ -27,7 +27,7 @@ class ViewmodelState {
     bool? isAuthenticated,
     String? validationCode,
     String? changedValidationCode,
-    bool activateButton = false,
+    bool? activateButton,
   }) {
     return ViewmodelState(
       emailController: emailController ?? this.emailController,
@@ -38,7 +38,7 @@ class ViewmodelState {
       validationCode: validationCode ?? this.validationCode,
       changedValidationCode:
           changedValidationCode ?? this.changedValidationCode,
-      activateButton: activateButton,
+      activateButton: activateButton ?? this.activateButton,
     );
   }
 }

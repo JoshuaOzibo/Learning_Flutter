@@ -45,25 +45,34 @@ class EmailField extends StatelessWidget {
               ),
             ),
 
-            BlocSelector<ViewmodelAuth, ViewmodelState, bool>(
-              selector: (state) => state.activateButton,
-              builder: (context, activateButton) {
+            BlocBuilder<ViewmodelAuth, ViewmodelState>(
+              builder: (context, state) {
                 final vm = context.read<ViewmodelAuth>();
+
+                final isDisabled = !state.activateButton || state.isLoading;
+
                 return MaterialButton(
                   height: 50,
                   minWidth: double.infinity,
-                  color: activateButton ? Colors.brown : Colors.grey,
                   elevation: 0,
-                  onPressed: () {
-                    vm.validateCode();
-                  },
+                  disabledElevation: 0,
+                  color: Colors.brown,
+                  disabledColor: state.activateButton ? const Color.fromARGB(255, 107, 98, 98) : const Color.fromARGB(255, 105, 63, 63),
+                  onPressed: isDisabled
+                      ? null
+                      : () {
+                          vm.loginWithEmail(emailController.text, context);
+                        },
                   child: Center(
-                    child: state.isLoading ?? false
-                        ? CircularProgressIndicator(
+                    child: state.isLoading
+                        ? const CircularProgressIndicator(
                             color: Colors.white,
                             strokeWidth: 2,
                           )
-                        : Text('Login'),
+                        : const Text(
+                            'Login',
+                            style: TextStyle(color: Colors.white),
+                          ),
                   ),
                 );
               },

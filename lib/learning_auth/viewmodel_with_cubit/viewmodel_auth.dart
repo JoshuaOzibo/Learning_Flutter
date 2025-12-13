@@ -10,17 +10,35 @@ class ViewmodelAuth extends Cubit<ViewmodelState> {
 
   onChangeEmail(String changedEmail) {
     print(changedEmail);
+    if (changedEmail.contains('@')) {
+      print('activationButton: true');
+      emit(state.copyWith(activateButton: true));
+    }
   }
 
-  void loginWithEmail(String email, BuildContext context) async{
-    emit(state.copyWith(isLoading: true));
+  void loginWithEmail(String email, BuildContext context) async {
+    if (!state.activateButton) return;
+
+    emit(state.copyWith(isLoading: true, errorMessage: null));
+
     try {
-      await auth0.api.startPasswordlessWithEmail(email: email, passwordlessType: PasswordlessType.code);
-      emit(state.copyWith(isAuthenticated: true, isLoading: false));
-      if(state.isAuthenticated){
-        Navigator.push(context, MaterialPageRoute(builder: (context) => const ValidateCode()));
-      }
+      print('processing api');
+
+      await auth0.api.startPasswordlessWithEmail(
+        email: email,
+        passwordlessType: PasswordlessType.code,
+      );
+
+      print('email sent');
+
+      emit(state.copyWith(isLoading: false));
+
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (_) => const ValidateCode()),
+      );
     } catch (e) {
+      print(e);
       emit(state.copyWith(errorMessage: e.toString(), isLoading: false));
     }
   }
@@ -40,7 +58,10 @@ class ViewmodelAuth extends Cubit<ViewmodelState> {
     try {
       emit(state.copyWith(isLoading: true));
       print(state.email);
-      await auth0.api.loginWithEmailCode(email: state.email!, verificationCode: state.changedValidationCode!);
+      await auth0.api.loginWithEmailCode(
+        email: state.email!,
+        verificationCode: state.changedValidationCode!,
+      );
       print('success');
       emit(
         state.copyWith(

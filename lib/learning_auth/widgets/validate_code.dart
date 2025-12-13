@@ -118,7 +118,7 @@ class ValidateCode extends StatelessWidget {
                         vm.validateCode();
                       },
                       child: Center(
-                        child: state.isLoading ?? false
+                        child: !state.isLoading
                             ? CircularProgressIndicator(
                                 color: Colors.white,
                                 strokeWidth: 2,
