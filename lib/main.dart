@@ -89,6 +89,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     //LearningAuthScreen()
     // //HivePage() //const SimpleCart() //  HiveTodoPage() //NoteHomePage() //TodoHomePage()
-    return MaterialApp(home: const ValidateCode());
+    return MaterialApp(home: const LearningAuthScreen());
   }
 }

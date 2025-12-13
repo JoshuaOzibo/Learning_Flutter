@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/learning_auth/viewmodel_with_cubit/viewmodel_auth.dart';
+import 'package:flutter_application_1/learning_auth/viewmodel_with_cubit/viewmodel_state.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class EmailField extends StatelessWidget {
   const EmailField({
     super.key,
     required this.handleSubscribeButton,
     required this.emailController,
-    required this.onChangedVal
+    required this.onChangedVal,
   });
 
   final VoidCallback handleSubscribeButton;
@@ -14,36 +17,60 @@ class EmailField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      spacing: 20,
-      children: [
-        TextField(
-          autocorrect: true,
-          keyboardType: TextInputType.emailAddress,
-          controller: emailController,
-          onChanged: (value) => onChangedVal(value),
-          decoration: InputDecoration(
-            border: OutlineInputBorder(
-              borderSide: BorderSide(width: 2, color: Colors.blueGrey, style: BorderStyle.solid),
-              borderRadius: BorderRadius.circular(30),
+    return BlocBuilder<ViewmodelAuth, ViewmodelState>(
+      builder: (context, state) {
+        return Column(
+          spacing: 20,
+          children: [
+            TextField(
+              autocorrect: true,
+              keyboardType: TextInputType.emailAddress,
+              controller: emailController,
+              onChanged: (value) => onChangedVal(value),
+              decoration: InputDecoration(
+                border: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    width: 2,
+                    color: Colors.blueGrey,
+                    style: BorderStyle.solid,
+                  ),
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                contentPadding: EdgeInsets.all(20),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(width: 2, color: Colors.green),
+                ),
+                hint: Text('Enter email'),
+                label: Text('Hello'),
+              ),
             ),
-            contentPadding: EdgeInsets.all(20),
-            focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(width: 2, color: Colors.green),
-            ),
-            hint: Text('Enter email'),
-            label: Text('Hello'),
-          ),
-        ),
 
-        MaterialButton(
-          color: Colors.brown,
-          height: 50,
-          minWidth: double.infinity,
-          onPressed: handleSubscribeButton,
-          child: Text('Subscribed', style: TextStyle(color: Colors.white)),
-        ),
-      ],
+            BlocSelector<ViewmodelAuth, ViewmodelState, bool>(
+              selector: (state) => state.activateButton,
+              builder: (context, activateButton) {
+                final vm = context.read<ViewmodelAuth>();
+                return MaterialButton(
+                  height: 50,
+                  minWidth: double.infinity,
+                  color: activateButton ? Colors.brown : Colors.grey,
+                  elevation: 0,
+                  onPressed: () {
+                    vm.validateCode();
+                  },
+                  child: Center(
+                    child: state.isLoading ?? false
+                        ? CircularProgressIndicator(
+                            color: Colors.white,
+                            strokeWidth: 2,
+                          )
+                        : Text('Login'),
+                  ),
+                );
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }

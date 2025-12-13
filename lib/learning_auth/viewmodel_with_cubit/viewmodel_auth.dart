@@ -1,5 +1,7 @@
 import 'package:auth0_flutter/auth0_flutter.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_application_1/learning_auth/viewmodel_with_cubit/viewmodel_state.dart';
+import 'package:flutter_application_1/learning_auth/widgets/validate_code.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ViewmodelAuth extends Cubit<ViewmodelState> {
@@ -10,11 +12,14 @@ class ViewmodelAuth extends Cubit<ViewmodelState> {
     print(changedEmail);
   }
 
-  void loginWithEmail(String email) async{
+  void loginWithEmail(String email, BuildContext context) async{
     emit(state.copyWith(isLoading: true));
     try {
       await auth0.api.startPasswordlessWithEmail(email: email, passwordlessType: PasswordlessType.code);
       emit(state.copyWith(isAuthenticated: true, isLoading: false));
+      if(state.isAuthenticated){
+        Navigator.push(context, MaterialPageRoute(builder: (context) => const ValidateCode()));
+      }
     } catch (e) {
       emit(state.copyWith(errorMessage: e.toString(), isLoading: false));
     }

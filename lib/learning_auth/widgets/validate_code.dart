@@ -112,15 +112,13 @@ class ValidateCode extends StatelessWidget {
                     builder: (context, activateButton) => MaterialButton(
                       height: 50,
                       minWidth: double.infinity,
-                      color: activateButton
-                          ? Colors.brown
-                          : Colors.grey,
+                      color: activateButton ? Colors.brown : Colors.grey,
                       elevation: 0,
                       onPressed: () {
                         vm.validateCode();
                       },
                       child: Center(
-                        child:state.isLoading ?? false
+                        child: state.isLoading ?? false
                             ? CircularProgressIndicator(
                                 color: Colors.white,
                                 strokeWidth: 2,
