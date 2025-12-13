@@ -59,16 +59,28 @@ class ViewmodelAuth extends Cubit<ViewmodelState> {
   Future<void> validateCode(BuildContext context) async {
     try {
       emit(state.copyWith(isLoading: true));
-      print(state.email);
-      await auth0.api.loginWithEmailCode(
+      print(
+        'Attempting login with email: ${state.email} and code: ${state.changedValidationCode}',
+      );
+
+      // 1️⃣ Login with OTP / email code
+      final credentials = await auth0.api.loginWithEmailCode(
         email: state.email!,
         verificationCode: state.changedValidationCode!,
       );
-      print('success');
+
+      // 2️⃣ Validate claims (security best practice)
+      // credentials.validateClaims();
+
+      print('Login success. Access Token: ${credentials.accessToken}');
+
+      // 3️⃣ Navigate to home
       Navigator.push(
         context,
         MaterialPageRoute(builder: (_) => const HomeAuthCubit()),
       );
+
+      // 4️⃣ Update state
       emit(
         state.copyWith(
           isLoading: false,
@@ -78,6 +90,7 @@ class ViewmodelAuth extends Cubit<ViewmodelState> {
         ),
       );
     } catch (e) {
+      print('Error during login: $e');
       emit(state.copyWith(errorMessage: e.toString(), isLoading: false));
     }
   }
