@@ -1,17 +1,23 @@
+import 'package:auth0_flutter/auth0_flutter.dart';
 import 'package:flutter_application_1/learning_auth/viewmodel_with_cubit/viewmodel_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ViewmodelAuth extends Cubit<ViewmodelState> {
-  ViewmodelAuth() : super(ViewmodelState(isAuthenticated: false));
+  final Auth0 auth0;
+  ViewmodelAuth(this.auth0) : super(ViewmodelState(isAuthenticated: false));
 
   onChangeEmail(String changedEmail) {
     print(changedEmail);
   }
 
-  validateEmail(String email) async {
+  void loginWithEmail(String email) async{
     emit(state.copyWith(isLoading: true));
-    Future.delayed(const Duration(seconds: 2), () => print('Logged in'));
-    print(email);
+    try {
+      await auth0.api.startPasswordlessWithEmail(email: email, passwordlessType: PasswordlessType.code);
+      emit(state.copyWith(isAuthenticated: true, isLoading: false));
+    } catch (e) {
+      emit(state.copyWith(errorMessage: e.toString(), isLoading: false));
+    }
   }
 
   void onChangeValidationCode(String validCode) {
@@ -28,14 +34,15 @@ class ViewmodelAuth extends Cubit<ViewmodelState> {
   Future<void> validateCode() async {
     try {
       emit(state.copyWith(isLoading: true));
-      await Future.delayed(const Duration(seconds: 2), () {
-        print(state.changedValidationCode);
-      });
+      print(state.email);
+      await auth0.api.loginWithEmailCode(email: state.email!, verificationCode: state.changedValidationCode!);
+      print('success');
       emit(
         state.copyWith(
           isLoading: false,
           changedValidationCode: null,
           activateButton: false,
+          isAuthenticated: true,
         ),
       );
     } catch (e) {

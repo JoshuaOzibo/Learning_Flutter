@@ -1,5 +1,6 @@
 class ViewmodelState {
   final String? emailController;
+  final String? email;
   final bool? isLoading;
   final String? errorMessage;
   final bool isAuthenticated;
@@ -9,6 +10,7 @@ class ViewmodelState {
 
   ViewmodelState({
     this.emailController,
+    this.email,
     this.isLoading,
     this.errorMessage,
     required this.isAuthenticated,
@@ -19,6 +21,7 @@ class ViewmodelState {
 
   ViewmodelState copyWith({
     String? emailController,
+    String? email,
     bool? isLoading,
     String? errorMessage,
     bool? isAuthenticated,
@@ -28,6 +31,7 @@ class ViewmodelState {
   }) {
     return ViewmodelState(
       emailController: emailController ?? this.emailController,
+      email: email ?? this.email,
       isLoading: isLoading ?? this.isLoading,
       errorMessage: errorMessage ?? this.errorMessage,
       isAuthenticated: isAuthenticated ?? this.isAuthenticated,

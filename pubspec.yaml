@@ -46,6 +46,7 @@ dependencies:
   bloc: ^9.1.0
   flutter_bloc: ^9.1.1
   otp_pin_field: ^1.4.1
+  auth0_flutter: ^1.14.0
 
 dev_dependencies:
   flutter_test:

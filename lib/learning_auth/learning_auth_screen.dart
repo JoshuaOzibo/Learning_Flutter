@@ -28,7 +28,7 @@ class _LearningAuthScreenState extends State<LearningAuthScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 EmailField(
-                  handleSubscribeButton: () => context.read<ViewmodelAuth>().validateEmail(_emailController.text),
+                  handleSubscribeButton: () => context.read<ViewmodelAuth>().loginWithEmail(_emailController.text),
                   emailController: _emailController,
                   onChangedVal: (value) => context.read<ViewmodelAuth>().onChangeEmail(value),
                 ),
