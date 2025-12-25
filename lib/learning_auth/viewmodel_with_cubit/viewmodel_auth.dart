@@ -7,7 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ViewmodelAuth extends Cubit<ViewmodelState> {
   final Auth0 auth0;
-  ViewmodelAuth(this.auth0) : super(ViewmodelState(isAuthenticated: false));
+  ViewmodelAuth(this.auth0) : super(ViewmodelState());
 
   onChangeEmail(String changedEmail) {
     print(changedEmail);

@@ -13,7 +13,7 @@ class ViewmodelState {
     this.email,
     this.isLoading = false,
     this.errorMessage,
-    required this.isAuthenticated,
+    this.isAuthenticated = false,
     this.validationCode,
     this.changedValidationCode,
     this.activateButton = false,
