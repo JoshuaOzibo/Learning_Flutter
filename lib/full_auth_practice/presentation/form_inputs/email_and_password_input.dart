@@ -24,7 +24,13 @@ class EmailAndPasswordInput extends StatelessWidget {
             child: TextField(
               controller: emailController,
               autocorrect: true,
-              decoration: InputDecoration(hint: Text('enter email')),
+              decoration: InputDecoration(
+                focusedBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.black)),
+                border: OutlineInputBorder(
+                  borderSide: BorderSide(width: 1,),
+                  borderRadius: BorderRadius.circular(10)
+                ),
+                hint: Text('enter email')),
             ),
           ),
           SizedBox(
@@ -33,7 +39,13 @@ class EmailAndPasswordInput extends StatelessWidget {
             child: TextField(
               controller: passwordController,
               autocorrect: true,
-              decoration: InputDecoration(hint: Text('enter password')),
+              decoration: InputDecoration(
+                focusedBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.black)),
+                border: OutlineInputBorder(
+                  borderSide: BorderSide(width: 1,),
+                  borderRadius: BorderRadius.circular(10)
+                ),
+                hint: Text('enter password')),
             ),
           ),
       
