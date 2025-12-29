@@ -14,6 +14,10 @@ class _FormAuthScreenState extends State<FormAuthScreen> {
 
   handleSubmitLogin() {
     print('object');
+    if(_emailController.text.isEmpty || _passwordController.text.isEmpty){
+      return;
+    }
+    print({"email": "${_emailController.text}", "password" : "${_passwordController.text}"});
 
     _emailController.clear();
     _passwordController.clear();

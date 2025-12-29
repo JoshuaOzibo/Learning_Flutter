@@ -17,6 +17,7 @@ import 'package:flutter_application_1/flutter_animation/implicit_animation/anima
 import 'package:flutter_application_1/flutter_animation/implicit_animation/animation_two.dart';
 import 'package:flutter_application_1/flutter_animation/implicit_animation/rotation_animation.dart';
 import 'package:flutter_application_1/flutter_animation/page_route_animations/splash_animation.dart';
+import 'package:flutter_application_1/full_auth_practice/presentation/screens/form_auth_screen.dart';
 import 'package:flutter_application_1/learning_auth/learning_auth_screen.dart';
 import 'package:flutter_application_1/learning_auth/viewmodel_with_cubit/viewmodel_auth.dart';
 import 'package:flutter_application_1/learning_auth/widgets/validate_code.dart';
@@ -88,7 +89,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //LearningAuthScreen()
-    // //HivePage() //const SimpleCart() //  HiveTodoPage() //NoteHomePage() //TodoHomePage()
-    return MaterialApp(home: const LearningAuthScreen());
+    // //HivePage() //const SimpleCart() //  HiveTodoPage() //NoteHomePage() //TodoHomePage() LearningAuthScreen()
+    return MaterialApp(home: const FormAuthScreen());
   }
 }
