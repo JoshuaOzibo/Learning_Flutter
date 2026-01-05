@@ -50,6 +50,9 @@ pubspec.lock
 secret.dart
 .env
 
+.env//
+env//
+
 # Android Studio will place build artifacts here
 /android/app/debug
 /android/app/profile
