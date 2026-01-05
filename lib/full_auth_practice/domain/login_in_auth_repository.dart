@@ -1,3 +1,5 @@
+import 'package:flutter_application_1/full_auth_practice/models/signin/sign_in_types.dart';
+
 abstract class LoginInAuthRepository {
   Future<List<Map<dynamic, String>>> authRemoteDataSourceFunc(
     Map<String, String> email,
@@ -7,13 +9,7 @@ abstract class LoginInAuthRepository {
 
 class LoginInAuthRepositoryImpl extends LoginInAuthRepository {
   @override
-  Future<List<Map<dynamic, String>>> authRemoteDataSourceFunc(
-    Map<String, String> email,
-    password,
-  ) {
-    // TODO: implement authRemoteDataSourceFunc
-    print(email);
-    print(password);
-    throw UnimplementedError();
+  Future<SignInTypes> authRemoteDataSourceFunc(String loginDetails) {
+    return;
   }
 }

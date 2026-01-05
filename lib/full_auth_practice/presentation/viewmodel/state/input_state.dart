@@ -1,5 +1,5 @@
 class InputState {
- bool isAuthenticated;
+ bool isAuthenticated = false;
 
  InputState({
   required this.isAuthenticated
