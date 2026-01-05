@@ -43,6 +43,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:auth0_flutter/auth0_flutter.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 late Auth0 auth0;
 
@@ -51,6 +52,10 @@ void main() async {
   await dotenv.load(fileName: ".env");
   await Hive.initFlutter();
   auth0 = Auth0(dotenv.env['DOMAIN']!, dotenv.env['CLIENT_ID']!);
+  await Supabase.initialize(
+    url: '${dotenv.env['SUPABASE_URL']}',
+    anonKey: '${dotenv.env['SUPABASE_ANONKEY']}',
+  );
   // Hive.registerAdapter(PersonAdapter());
   Hive.registerAdapter(NoteAppDbModelAdapter());
   Hive.registerAdapter(TodoDbModelAdapter());
