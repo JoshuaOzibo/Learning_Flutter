@@ -7,9 +7,9 @@ abstract class LoginInAuthRepository {
   );
 }
 
-class LoginInAuthRepositoryImpl extends LoginInAuthRepository {
-  @override
-  Future<SignInTypes> authRemoteDataSourceFunc(String loginDetails) {
-    return;
-  }
-}
+// class LoginInAuthRepositoryImpl extends LoginInAuthRepository {
+//   @override
+//   Future<SignInTypes> authRemoteDataSourceFunc(String loginDetails) {
+//     return;
+//   }
+// }
